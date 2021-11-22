@@ -1,51 +1,46 @@
 import Head from 'next/head'
+import { Heading, Link, Text, Code, Flex, Box } from "@chakra-ui/react";
 
 export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Philter App</title>
       </Head>
-
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+      <Heading as="h1" size="2xl" mb="2">
+          <Link color="teal.500" href="http://localhost:3000/">Philter</Link>
+      </Heading>
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <Flex flexWrap="wrap" alignItems="center" justifyContent="center" maxW="800px" mt="10">
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          <Box as="a" href="http://localhost:3000/" p="6" m="4" borderWidth="1px" rounded="lg" flexBasis="45%">
+            <Heading as="h3" size="lg" mb="2">Developer Page &rarr;</Heading>
+              <Text fontSize="lg">Check out our Developer Page</Text>
+          </Box>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+          <Box as="a" href="http://localhost:3000/" p="6" m="4" borderWidth="1px" rounded="lg" flexBasis="45%">
+            <Heading as="h3" size="lg" mb="2">Style Adopter Page &rarr;</Heading>
+              <Text fontSize="lg">Check out our Style Adopter Page</Text>
+          </Box>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <Box as="a" href="http://localhost:3000/" p="6" m="4" borderWidth="1px" rounded="lg" flexBasis="45%">
+        <Heading as="h3" size="lg" mb="2">Philter Page &rarr;</Heading>
+        <Text fontSize="lg">Check out our Philter Page</Text>
+        </Box>
+
+        <Box as="a" href="http://localhost:3000/" p="6" m="4" borderWidth="1px" rounded="lg" flexBasis="45%">
+        <Heading as="h3" size="lg" mb="2">Image Restoration Page &rarr;</Heading>
+        <Text fontSize="lg">Check out our Image Restoration Page</Text>
+        </Box>
+
+        <Box as="a" href="http://localhost:3000/" p="6" m="4" borderWidth="1px" rounded="lg" flexBasis="45%">
+        <Heading as="h3" size="lg" mb="2">Gallery Page &rarr;</Heading>
+        <Text fontSize="lg">Check out our Gallery Page</Text>
+        </Box>
+
+        </Flex>
       </main>
 
       <footer>

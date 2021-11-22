@@ -10,7 +10,7 @@ export default function Home() {
       <main>
 
       <Heading as="h1" size="2xl" mb="2">
-          <Link color="teal.500" href="http://localhost:3000/">Philter</Link>
+          <Link color="blue.500" href="http://localhost:3000/">Philter</Link>
       </Heading>
 
         <Flex flexWrap="wrap" alignItems="center" justifyContent="center" maxW="800px" mt="10">

@@ -1,16 +1,18 @@
 import * as React from "react"
-import customTheme from "../lib/theme"
-
-// 1. import `ChakraProvider` component
+import theme from "../lib/theme"
+import Layout from '../components/layouts/main'
+import Fonts from '../components/fonts'
 import { ChakraProvider,CSSReset } from "@chakra-ui/react"
 
 
-export default function App({ Component, pageProps }) {
-  // 2. Use at the root of your app
+export default function App({ Component, pageProps, router }) {
   return (
-    <ChakraProvider theme={customTheme}>
+    <ChakraProvider theme={theme}>
         <CSSReset />
-      <Component {...pageProps}/>
+        <Fonts />
+        <Layout router={router}>
+        <Component {...pageProps} key={router.route}/>
+        </Layout>
     </ChakraProvider>
   )
 }

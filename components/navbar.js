@@ -113,15 +113,9 @@ const Navbar = props => {
                 <NextLink href="/restoration" passHref>
                   <MenuItem as={Link}>Image Restoration Page</MenuItem>
                 </NextLink>
-                <NextLink href="/Gallery" passHref>
+                <NextLink href="/gallery" passHref>
                   <MenuItem as={Link}>Gallery Page</MenuItem>
                 </NextLink>
-                <MenuItem
-                  as={Link}
-                  href="https://github.com/craftzdog/craftzdog-homepage"
-                >
-                  View Source
-                </MenuItem>
               </MenuList>
             </Menu>
           </Box>

@@ -3,6 +3,7 @@ import theme from "../lib/theme"
 import Layout from '../components/layouts/main'
 import Fonts from '../components/fonts'
 import { ChakraProvider,CSSReset } from "@chakra-ui/react"
+import { AnimatePresence } from "framer-motion"
 
 
 export default function App({ Component, pageProps, router }) {
@@ -11,7 +12,9 @@ export default function App({ Component, pageProps, router }) {
         <CSSReset />
         <Fonts />
         <Layout router={router}>
+        <AnimatePresence exitBeforeEnter initial={true}>
         <Component {...pageProps} key={router.route}/>
+        </AnimatePresence>
         </Layout>
     </ChakraProvider>
   )

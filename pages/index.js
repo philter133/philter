@@ -4,10 +4,12 @@ import NextLink from 'next/link'
 import Section from '../components/section';
 import Paragraph from '../components/paragraph';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import Footer from '../components/Footer';
+import Layout from '../components/layouts/article';
 
 export default function Home() {
   return (
-   
+   <Layout>
   <Container> 
     <Box borderRadius="lg" bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} p={3} mb={6} maxW={800} align="center">
       Home Page
@@ -47,7 +49,7 @@ export default function Home() {
           </Paragraph>
           
         <Box align="center" my={4}>
-          <NextLink href="/developer">
+          <NextLink href="/philter">
             <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
             Create your own
             </Button>
@@ -63,7 +65,7 @@ export default function Home() {
           </Paragraph>
           
         <Box align="center" my={4}>
-          <NextLink href="/developer">
+          <NextLink href="/adopter">
             <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
             Create your own
             </Button>
@@ -72,20 +74,24 @@ export default function Home() {
       </Section>
       <Section delay={0.1}>
         <Heading as="h3" variant="section-title">
-          Image Restoration Section
+          Image Restoration Page
         </Heading>
         <Paragraph>
           Where Image will be 
           </Paragraph>
           
         <Box align="center" my={4}>
-          <NextLink href="/developer">
+          <NextLink href="/restoration">
             <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
               Create your own 
             </Button>
           </NextLink>
         </Box>
       </Section>
+      <Section>
+        <Footer/>
+      </Section>
     </Container>
+    </Layout>
   )
 }

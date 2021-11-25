@@ -12,15 +12,13 @@ export default function Home() {
    <Layout>
   <Container> 
     <Box borderRadius="lg" bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} p={3} mb={6} maxW={800} align="center">
-      Home Page
+    <Heading as="h2" variant="page-tile">
+          Philter
+        </Heading>
     </Box>
 
     <Box display={{md:'flex'}}>
       <Box flexGrow={1}>
-        <Heading as="h2" variant="page-tile">
-          Philter
-        </Heading>
-        <p>This is philter app</p>
       </Box>
       <Box
           flexShrink={0}
@@ -28,7 +26,14 @@ export default function Home() {
           ml={{ md: 6 }}
           textAlign="center"
         >
-          <Image
+    </Box>
+    </Box>
+    <Section delay={0.1}>
+        <Heading as="h3" variant="section-title">
+          Philter Section
+        </Heading>
+        <Paragraph>
+        <Image
             borderColor="whiteAlpha.800"
             borderWidth={2}
             borderStyle="solid"
@@ -38,14 +43,7 @@ export default function Home() {
             src="/images/sample1.png"
             alt="Profile image"
           />
-    </Box>
-    </Box>
-    <Section delay={0.1}>
-        <Heading as="h3" variant="section-title">
-          Philter Section
-        </Heading>
-        <Paragraph>
-          Where Image will be 
+          Put image here
           </Paragraph>
           
         <Box align="center" my={4}>
@@ -61,7 +59,17 @@ export default function Home() {
           Style Adopter Section
         </Heading>
         <Paragraph>
-          Where Image will be 
+        <Image
+            borderColor="whiteAlpha.800"
+            borderWidth={2}
+            borderStyle="solid"
+            maxWidth="100px"
+            display="inline-block"
+            borderRadius="full"
+            src="/images/sample1.png"
+            alt="Profile image"
+          /> 
+          Put image here
           </Paragraph>
           
         <Box align="center" my={4}>
@@ -77,7 +85,17 @@ export default function Home() {
           Image Restoration Page
         </Heading>
         <Paragraph>
-          Where Image will be 
+        <Image
+            borderColor="whiteAlpha.800"
+            borderWidth={2}
+            borderStyle="solid"
+            maxWidth="100px"
+            display="inline-block"
+            borderRadius="full"
+            src="/images/sample1.png"
+            alt="Profile image"
+          />
+           Put image here
           </Paragraph>
           
         <Box align="center" my={4}>

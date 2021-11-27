@@ -10,9 +10,9 @@ const NotFound = () => {
             router.push('/');
         }, 3000)
     }, [])
-    
+
     return (
-        <div textAlign="center">
+        <div text-align="center">
         <h1>Ooooops...</h1>
         <h2>That page cannot be found.</h2>
         <p>

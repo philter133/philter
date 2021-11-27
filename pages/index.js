@@ -4,11 +4,15 @@ import NextLink from 'next/link'
 import Section from '../components/section';
 import Paragraph from '../components/paragraph';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import Footer from '../components/Footer';
 import Layout from '../components/layouts/article';
 
 export default function Home() {
   return (
+    <>
+    <Head>
+      <title>Philter | Home</title>
+      <meta name ="keywords" content ="Home"/>
+    </Head>
    <Layout>
   <Container> 
     <Box borderRadius="lg" bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} p={3} mb={6} maxW={800} align="center">
@@ -106,10 +110,8 @@ export default function Home() {
           </NextLink>
         </Box>
       </Section>
-      <Section>
-        <Footer/>
-      </Section>
     </Container>
     </Layout>
+    </>
   )
 }

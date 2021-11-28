@@ -25,7 +25,7 @@ var state = {
 
 }
 
-function handleFile(e) {
+function handleFiles(e) {
 
   // console.log(e.target.files, "$$$$");
   // console.log(e.target.files[0], "$$$$");
@@ -73,7 +73,7 @@ const Philter= ({images}) => (
       <form>
         <div>
           <label>Select File</label>
-          <input type ='file' multiple name='file' onChange={(e) =>this.handleFile(e)}/>
+          <input type ='file' multiple name='file' onChange={(e)=>this.handleFiles(e)}/>
         </div>
         </form>
       {images.map(image => (

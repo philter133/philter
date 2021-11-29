@@ -6,6 +6,7 @@ import Paragraph from '../components/paragraph';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import Layout from '../components/layouts/article';
 
+
 export default function Home() {
   return (
     <>

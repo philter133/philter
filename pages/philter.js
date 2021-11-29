@@ -1,92 +1,84 @@
-//Fetching data here 
+//Fetching data here
 //1.the user’s network connection: avoid re-fetching data that is already available
 //2 what to do while waiting for the server response
 //3.how to handle when data is not available (server error, or no data)
 //4.how to recover if integration breaks (endpoint unavailable, resource changed, etc)
 
-import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
-import Section from '../components/section'
-import Layout from '../components/layouts/article'
-import { WorkGridItem } from '../components/grid-item'
-import Head from 'next/head'
-import axios from 'axios'
+import { useState } from "react";
+import {
+  Container,
+  Heading,
+  SimpleGrid,
+  Divider,
+  Button,
+} from "@chakra-ui/react";
+import Section from "../components/section";
+import Layout from "../components/layouts/article";
+import { WorkGridItem } from "../components/grid-item";
+import Head from "next/head";
+import axios from "axios";
 
-export const getStaticProps = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const data = await res.json();
-  //http://127.0.0.1:5000/apply-filter
-  return {
-    props: { images: data }
+const Philter = ({}) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loadState, setLoadState] = useState("idle");
+  const [imageUrl, setImageUrl] = useState(null);
+  function handleFileSelect(event) {
+    setSelectedFile(event.target.files[0]);
   }
-}
-var state = {
 
-  file:null
-
-}
-
-function handleFiles(e) {
-
-  // console.log(e.target.files, "$$$$");
-  // console.log(e.target.files[0], "$$$$");
-
-  let file = e.target.files[0]
-
-  //for multiple files, add all
-
-  this.setState({file: file})
-}
-
-function handleUpload(e) {
-  console.log(this.state, "THE STATE ---- $$$$");
-
-  let file = this.state.file
-
-  let formdata = new FormData()
-
-  formdata.append('image',file)
-  formdata.append('name', "Philter" )
-
-  axios({
-    url: '',
-    method: "get",
-    headers:{
-      authorization: 'your token'
-    },
-    data: formdata //pass here
-  }),then((res)=>{
-      //handle
-  },(err) => {
-    //error
-  })
-}
-
-const Philter= ({images}) => (
-<Layout title="philter">
-<Head>
-      <title>Philter | Philter</title>
-      <meta name ="keywords" content ="philter"/>
-    </Head>
-    <Container>
-      <div>
-      <h1>The Form </h1>
-      <form>
+  async function onFormSubmit(event) {
+    event.preventDefault();
+    console.log("submit");
+    const form = new FormData();
+    form.append("file", selectedFile);
+    form.append("name", "edtaonisl");
+    form.append("size", "small");
+    setLoadState("loading");
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://127.0.0.1:5000/apply-filter",
+        data: form,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log(response);
+      // TODO: Get image url from the response aned set state
+      // setImageUrl(response.data.url);
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error");
+    }
+  }
+  return (
+    <Layout title="philter">
+      <Head>
+        <title>Philter | Philter</title>
+        <meta name="keywords" content="philter" />
+      </Head>
+      <Container>
         <div>
-          <label>Select File</label>
-          <input type ='file' multiple name='file' onChange={(e)=>this.handleFiles(e)}/>
+          <h1>The Form </h1>
+          <form onSubmit={onFormSubmit}>
+            <div>
+              <label>Select File</label>
+              <input
+                type="file"
+                multiple
+                name="file"
+                onChange={handleFileSelect}
+              />
+              <Button type="submit" colorScheme="teal">
+                Submit
+              </Button>
+            </div>
+          </form>
+          {loadState === "loading" && <h3>LOADING</h3>}
+          {imageUrl && <image url={imageUrl} />}
         </div>
-        </form>
-      {images.map(image => (
-        <div key={image.id}>
-          <a>
-            <h3>{ image.name }</h3>
-          </a>
-        </div>
-      ))}
-    </div>
-
-        </Container>
+      </Container>
     </Layout>
-)
+  );
+};
 
-export default Philter
+export default Philter;

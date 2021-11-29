@@ -21,7 +21,7 @@ const Developer = () => (
       borderRadius = {30}
       >
         <Image
-          boxSize = "300px"
+          boxSize = "250px"
           objectFit = "cover"
           padding = "4"
           src = "/images/SriDev1.jpg"
@@ -30,15 +30,15 @@ const Developer = () => (
           backgroundColor = "white"
           paddingLeft = {5}
           borderRadius = {45}
-          marginTop = {4}
+          marginTop = {2}
           marginLeft = {1}
           />
-        <Container backgroundColor = "" textColor = "black" padding="5" h="332px" >
+        <Container backgroundColor = "" textColor = "black" padding="5" h="266px" fontSize={12}>
           <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
           Sriram Govindan
           </Heading>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure   
           dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Container>
@@ -54,7 +54,7 @@ const Developer = () => (
       gridTemplateColumns = "455px 250px"
       borderRadius = {30}
       >
-        <Container backgroundColor = "" textColor = "black" padding="5" h="332px">
+        <Container backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
           <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
           Hyeonmin Song
           </Heading>
@@ -64,7 +64,7 @@ const Developer = () => (
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Container>
         <Image
-          boxSize = "300px"
+          boxSize = "250px"
           objectFit = "cover"
           padding = "4"
           src = "/images/LukeDev2.jpg"
@@ -74,7 +74,7 @@ const Developer = () => (
           paddingRight = {4}
           borderRadius = {45}
           marginLeft = {-4}
-          marginTop = {4}
+          marginTop = {2}
           />
         </SimpleGrid>
 
@@ -91,7 +91,7 @@ const Developer = () => (
       borderRadius = {30}
       >
         <Image
-          boxSize = "300px"
+          boxSize = "250px"
           objectFit = "cover"
           padding = "4"
           src = "/images/ChauDev.jpg"
@@ -100,10 +100,10 @@ const Developer = () => (
           backgroundColor = "white"
           paddingLeft = {5}
           borderRadius = {45}
-          marginTop = {4}
+          marginTop = {2}
           marginLeft = {1}
           />
-        <Container backgroundColor = "" textColor = "black" padding="5" h="332px" >
+        <Container backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
           <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
           Patrick Chau
           </Heading>
@@ -124,7 +124,7 @@ const Developer = () => (
       gridTemplateColumns = "455px 250px"
       borderRadius = {30}
       >
-        <Container backgroundColor = "" textColor = "black" padding="5" h="332px">
+        <Container backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
           <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
           Ahmed Moaz
           </Heading>
@@ -134,7 +134,7 @@ const Developer = () => (
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </Container>
         <Image
-          boxSize = "300px"
+          boxSize = "250px"
           objectFit = "cover"
           padding = "4"
           src = "/images/AhmedDev3.jpg"
@@ -144,7 +144,7 @@ const Developer = () => (
           paddingRight = {4}
           borderRadius = {45}
           marginLeft = {-4}
-          marginTop = {4}
+          marginTop = {2}
           />
         </SimpleGrid>
       </Container>

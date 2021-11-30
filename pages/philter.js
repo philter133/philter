@@ -36,11 +36,20 @@ const Philter = ({}) => {
     setLoadState("loading");
     try {
       const response = await axios({
+        mode: "cors",
         method: "post",
         url: "http://127.0.0.1:5000/apply-filter",
         data: form,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        responseType: "blob",
       });
+      const imgBlob = await response.data;
+      setImageUrl(imgBlob);
+
+      // URL.createObjectURL(imageUrl)
+
       console.log(response);
       // TODO: Get image url from the response aned set state
       // setImageUrl(response.data.url);
@@ -74,7 +83,7 @@ const Philter = ({}) => {
             </div>
           </form>
           {loadState === "loading" && <h3>LOADING</h3>}
-          {imageUrl && <image url={imageUrl} />}
+          {imageUrl && <img src={URL.createObjectURL(imageUrl)} />}
         </div>
       </Container>
     </Layout>

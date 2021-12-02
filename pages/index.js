@@ -1,4 +1,5 @@
 import Head from "next/head";
+import React, { useState } from "react";
 import {
   Heading,
   Link,
@@ -8,14 +9,63 @@ import {
   useColorModeValue,
   Button,
   SimpleGrid,
+  flex,
+  Grid,
+  GridItem,
+  Stack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Section from "../components/section";
 import Paragraph from "../components/paragraph";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Layout from "../components/layouts/article";
+import image from "next/image";
 
 export default function Home() {
+  function ImagesContainer() {
+    const images = [
+      "https://picsum.photos/200?random=1",
+      "https://picsum.photos/200?random=2",
+      "https://picsum.photos/200?random=3",
+      "https://picsum.photos/200?random=4",
+      "https://picsum.photos/200?random=5",
+      "https://picsum.photos/200?random=6",
+    ];
+    const [selectedImage, setSelectedImage] = useState(images[0]);
+    return (
+      <div>
+        <SelectedImage url={selectedImage} />
+        {images.map((url) => (
+          <ImageGridItem
+            url={url}
+            selected={url === selectedImage}
+            onClick={() => setSelectedImage(url)}
+          />
+        ))}
+      </div>
+    );
+  }
+  function SelectedImage({ url }) {
+    return <img src={url} style={{ width: 250 }} />;
+  }
+
+  function ImageGridItem({ url, selected, onClick }) {
+    return (
+      <Stack direction="row">
+        <img
+          src={url}
+          style={{
+            borderStyle: selected ? "solid" : "none",
+            margin: "10px",
+
+            borderColor: "blue",
+          }}
+          onClick={onClick}
+        />
+      </Stack>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -44,27 +94,8 @@ export default function Home() {
               minH="700"
             >
               <div align="center">
-                <Image
-                  boxSize="250px"
-                  objectFit="cover"
-                  padding="4"
-                  src="/images/SriDev1.jpg"
-                  alt="Sri"
-                  backgroundSize="500px"
-                  backgroundColor="white"
-                  paddingLeft={5}
-                  borderRadius={45}
-                  marginTop={2}
-                  marginLeft={1}
-                />
+                <ImagesContainer />
               </div>
-              <Container
-                backgroundColor=""
-                textColor="black"
-                padding="5"
-                h="266px"
-                fontSize={12}
-              ></Container>
             </SimpleGrid>
 
             <Box align="center" my={4}>

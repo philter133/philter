@@ -31,7 +31,7 @@ const Philter = ({}) => {
     console.log("submit");
     const form = new FormData();
     form.append("file", selectedFile);
-    form.append("name", "edtaonisl");
+    form.append("name", "cudi"); //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", "small");
     setLoadState("loading");
     try {

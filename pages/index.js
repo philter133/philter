@@ -24,7 +24,7 @@ import image from "next/image";
 export default function Home() {
   function ImagesContainer() {
     const images = [
-      "https://picsum.photos/200?random=1",
+      "https://picsum.photos/200?random=1", //IMAGE URL FROM SRI ON FRIDAY
       "https://picsum.photos/200?random=2",
       "https://picsum.photos/200?random=3",
       "https://picsum.photos/200?random=4",
@@ -51,18 +51,16 @@ export default function Home() {
 
   function ImageGridItem({ url, selected, onClick }) {
     return (
-      <Stack direction="row">
-        <img
-          src={url}
-          style={{
-            borderStyle: selected ? "solid" : "none",
-            margin: "10px",
-
-            borderColor: "blue",
-          }}
-          onClick={onClick}
-        />
-      </Stack>
+      <img
+        src={url}
+        style={{
+          borderStyle: selected ? "solid" : "none",
+          margin: "10px",
+          display: "inline-flex",
+          borderColor: "blue",
+        }}
+        onClick={onClick}
+      />
     );
   }
 

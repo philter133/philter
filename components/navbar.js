@@ -1,5 +1,5 @@
-import Logo from './logo'
-import NextLink from 'next/link'
+import Logo from "./logo";
+import NextLink from "next/link";
 import {
   Container,
   Box,
@@ -12,37 +12,37 @@ import {
   MenuList,
   MenuButton,
   IconButton,
-  useColorModeValue
-} from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
-import ThemeToggleButton from './theme-toggle-button.js'
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import ThemeToggleButton from "./theme-toggle-button.js";
 
 const LinkItem = ({ href, path, children }) => {
-  const active = path === href
-  const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
+  const active = path === href;
+  const inactiveColor = useColorModeValue("gray200", "whiteAlpha.900");
   return (
     <NextLink href={href}>
       <Link
         p={2}
-        bg={active ? 'grassTeal' : undefined}
-        color={active ? '#202023' : inactiveColor}
+        bg={active ? "grassTeal" : undefined}
+        color={active ? "#202023" : inactiveColor}
       >
         {children}
       </Link>
     </NextLink>
-  )
-}
+  );
+};
 
-const Navbar = props => {
-  const { path } = props
+const Navbar = (props) => {
+  const { path } = props;
 
   return (
     <Box
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue('#ffffff40', '#20202380')}
-      style={{ backdropFilter: 'blur(10px)' }}
+      bg={useColorModeValue("#ffffff40", "#20202380")}
+      style={{ backdropFilter: "blur(10px)" }}
       zIndex={1}
       {...props}
     >
@@ -55,21 +55,21 @@ const Navbar = props => {
         justify="space-between"
       >
         <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg" letterSpacing={'tighter'}>
+          <Heading as="h1" size="lg" letterSpacing={"tighter"}>
             <Logo />
           </Heading>
         </Flex>
 
         <Stack
-          direction={{ base: 'column', md: 'row' }}
-          display={{ base: 'none', md: 'flex' }}
-          width={{ base: 'full', md: 'auto' }}
+          direction={{ base: "column", md: "row" }}
+          display={{ base: "none", md: "flex" }}
+          width={{ base: "full", md: "auto" }}
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
         >
           <LinkItem href="/developer" path={path}>
-            Developers 
+            Developers
           </LinkItem>
 
           <LinkItem href="/adopter" path={path}>
@@ -77,7 +77,7 @@ const Navbar = props => {
           </LinkItem>
 
           <LinkItem href="/philter" path={path}>
-            Philter 
+            Philter
           </LinkItem>
 
           <LinkItem href="/restoration" path={path}>
@@ -91,9 +91,9 @@ const Navbar = props => {
 
         <Box flex={1} align="right">
           <ThemeToggleButton />
-          <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
-          {/* isLazy id="navbar-menu" */}
-            <Menu> 
+          <Box ml={2} display={{ base: "inline-block", md: "none" }}>
+            {/* isLazy id="navbar-menu" */}
+            <Menu>
               <MenuButton
                 as={IconButton}
                 icon={<HamburgerIcon />}
@@ -122,7 +122,7 @@ const Navbar = props => {
         </Box>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

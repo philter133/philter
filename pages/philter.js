@@ -67,7 +67,7 @@ const Philter = ({}) => {
       </Head>
       <Container>
         <div>
-          <h1>The Form </h1>
+          <h1>Upload your image to get philtered image </h1>
           <form onSubmit={onFormSubmit}>
             <div>
               <label>Select File</label>

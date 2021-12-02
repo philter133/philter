@@ -29,7 +29,7 @@ export default function Home() {
       "https://picsum.photos/200?random=3",
       "https://picsum.photos/200?random=4",
       "https://picsum.photos/200?random=5",
-      "https://picsum.photos/200?random=6",
+      "https://picsum.photos/200?random=6", //When you press the image, make
     ];
     const [selectedImage, setSelectedImage] = useState(images[0]);
     return (
@@ -46,7 +46,7 @@ export default function Home() {
     );
   }
   function SelectedImage({ url }) {
-    return <img src={url} style={{ width: 250 }} />;
+    return <img src={url} style={{ width: 250 }} />; // instead of selected image, you have to load another radom image
   }
 
   function ImageGridItem({ url, selected, onClick }) {
@@ -111,13 +111,10 @@ export default function Home() {
               maxW="1000"
               minH="700"
             >
-              <Container
-                backgroundColor=""
-                textColor="black"
-                padding="5"
-                h="266px"
-                fontSize={12}
-              ></Container>
+              <Container textAlign="center" textColor="RED" p={2}>
+                {" "}
+                Style Adopter feature is not yet ready
+              </Container>
             </SimpleGrid>
 
             <Box align="center" my={4}>
@@ -134,15 +131,7 @@ export default function Home() {
               backgroundColor="white"
               maxW="1000"
               minH="700"
-            >
-              <Container
-                backgroundColor=""
-                textColor="black"
-                padding="5"
-                h="266px"
-                fontSize={12}
-              ></Container>
-            </SimpleGrid>
+            ></SimpleGrid>
 
             <Box align="center" my={4}>
               <NextLink href="/restoration">

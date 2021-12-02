@@ -3,6 +3,7 @@
   text-align: center;
   text-decoration: none;
   font-family: Righteous;
+  font-size: 10px;
 }
 
 nav 
@@ -15,8 +16,8 @@ nav
   border-color: #7C8AC5;
   border-width: 5px;
   border-style:solid;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 2vh;
+  border-bottom-right-radius: 2vh;
 }
 
 .logo-style{
@@ -26,13 +27,14 @@ nav
 }
 
 .nav-links{
-  margin-right: 5%;
-  width: 50%;
+  width: 30%;
   display: inline-flex; 
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-evenly;
   list-style: none;
   text-decoration: none;
+  margin-right: 4vh;
+  margin-left: 4vh;
 }
 
 .nav-links-style

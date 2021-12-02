@@ -1,0 +1,44 @@
+:root {
+    --main: #6777B8;
+    --hover: #8793CC;
+    --offWhite: #FAF9F5;   
+}
+
+.btn {
+    font-family: "Righteous";
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in;
+}
+
+.btn:hover {
+    background-color: var(--hover);
+    color: var(--offWhite);
+    border-color: var(--hover);
+    border-radius: 5px;
+    
+}
+
+.btn-active {
+    background-color: var(--offWhite);
+    color: var(--main);
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-inactive {
+    background-color: var(--main);
+    color: var(--offWhite);
+    border: none;
+    border-radius: 5px;
+}
+
+.mainSize {
+    padding: 10px 20px;
+    font-size: 30px;
+}
+
+.bigSize {
+    padding: 10px 20px;
+    font-size: 50px;
+}

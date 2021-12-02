@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import {Link} from 'react-router-dom'
+import logo from './logo.png';
 
 
 function Nav() {
@@ -8,21 +9,27 @@ function Nav() {
   const navStyle = {
     color: '#FAF9F5',
     textDecoration: 'none',
-    fontSize: "35px",
-    font: "Righteous"
+    fontSize: "3vmin",
+    font: "Righteous",
+    padding: "1vh",
+    display: "flex"
+  };
+
+  const logoStyle = {
+    width: "50vmin",
+    heigt: "50vmin",
+    borderRadius: "1.3vw",
+    margin: "1vh"
   };
 
   return (
 
 
     <nav>
-        <h3 className="logo-style">logo</h3>
-
+      <Link to="/">
+      <img style={logoStyle} src={logo}/>
+      </Link>
         <ul className="nav-links">  
-
-          <Link style={navStyle}  to='/'>
-          <li className='nav-links-style'>Homepage</li>
-          </Link>
 
           <Link style={navStyle} to='/filter'>
           <li className='nav-links-style'>Filter</li>

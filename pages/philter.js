@@ -31,7 +31,7 @@ const Philter = ({}) => {
     console.log("submit");
     const form = new FormData();
     form.append("file", selectedFile);
-    form.append("name", "cudi"); //cudi, edtaonisl, mosaic, scream, starrynight.
+    form.append("name", "scream"); //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", "small");
     setLoadState("loading");
     try {
@@ -56,7 +56,7 @@ const Philter = ({}) => {
       setLoadState("idle");
     } catch (error) {
       console.log(error);
-      setLoadState("error");
+      setLoadState("error"); //sets error when the data doesn't go through
     }
   }
   return (
@@ -67,7 +67,12 @@ const Philter = ({}) => {
       </Head>
       <Container>
         <div>
-          <h1>Upload your image to get philtered image </h1>
+          <h1>Upload your image to get philtered image</h1>
+        </div>
+        <div>
+          <h1>Only PNG or JPEG is accepted Only PNG or JPEG is Accepted</h1>
+        </div>
+        <div>
           <form onSubmit={onFormSubmit}>
             <div>
               <label>Select File</label>

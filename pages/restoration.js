@@ -33,6 +33,7 @@ const Restoration = ({}) => {
     form.append("file", selectedFile);
     form.append("name", "cudi"); //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", "small");
+
     setLoadState("loading");
     try {
       const response = await axios({
@@ -60,6 +61,7 @@ const Restoration = ({}) => {
     }
   }
   return (
+    // Description,
     <Layout title="restoration">
       <Head>
         <title>Philter | Image Restorator</title>
@@ -70,6 +72,23 @@ const Restoration = ({}) => {
           <h1>Upload your image to Restore the color of your image </h1>
           <form onSubmit={onFormSubmit}>
             <div>
+              {/*<div> 
+              <input
+                type="Description"
+                placeholder="Please enter Description"
+                name="Description"
+              ></input>
+              <input
+                type="tag"
+                placeholder="Please enter tag!"
+                name="tag"
+              ></input>
+              <input
+                type="submit"
+                style="margin-top: 1px; margin-bottom: 15px; margin-right: 10px;"
+                value="Send"
+                name="message"
+              ></input> */}
               <label>Select File</label>
               <input
                 type="file"
@@ -77,6 +96,8 @@ const Restoration = ({}) => {
                 name="file"
                 onChange={handleFileSelect}
               />
+            </div>
+            <div>
               <Button type="submit" colorScheme="teal">
                 Submit
               </Button>

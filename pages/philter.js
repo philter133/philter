@@ -70,7 +70,7 @@ const Philter = ({}) => {
           <h1>Upload your image to get philtered image</h1>
         </div>
         <div>
-          <h1>Only PNG or JPEG is accepted Only PNG or JPEG is Accepted</h1>
+          <h1>Only PNG or JPEG is accepted</h1>
         </div>
         <div>
           <form onSubmit={onFormSubmit}>

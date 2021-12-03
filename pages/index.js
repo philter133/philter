@@ -50,9 +50,7 @@ export default function Home() {
           <ImageGridItem
             url={url}
             selected={url === images[selectedImageIndex]}
-            onClick={(e, { selectedImageIndex }) =>
-              this.setState({ activeIndex: index, isOpen: true })
-            }
+            onClick={() => setSelectedImageIndex(i)}
           />
         ))}
       </div>

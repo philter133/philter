@@ -4,6 +4,11 @@
 //3.how to handle when data is not available (server error, or no data)
 //4.how to recover if integration breaks (endpoint unavailable, resource changed, etc)
 
+//form.elements will show all elements in form
+//Array.from(form.elements) make it an array of diff element
+//const form = event.currentTarget
+//Const fileInput = Array.from(form.elements).find(({ name }) => name === 'file') we are accessing the file that are uploading to browser
+
 import { useState } from "react";
 import {
   Container,
@@ -69,10 +74,15 @@ const Restoration = ({}) => {
       </Head>
       <Container>
         <div>
-          <h1>Upload your image to Restore the color of your image </h1>
+          <div>
+            <h1>Upload your image to Restore the color of your image </h1>
+          </div>
+          <div>
+            <h1>Only PNG or JPEG is accepted</h1>
+          </div>
           <form onSubmit={onFormSubmit}>
             <div>
-              {/*<div> 
+              {/*
               <input
                 type="Description"
                 placeholder="Please enter Description"
@@ -97,11 +107,10 @@ const Restoration = ({}) => {
                 onChange={handleFileSelect}
               />
             </div>
-            <div>
-              <Button type="submit" colorScheme="teal">
-                Submit
-              </Button>
-            </div>
+
+            <Button type="submit" colorScheme="teal">
+              Submit
+            </Button>
           </form>
           {loadState === "loading" && <h3>LOADING</h3>}
           {imageUrl && <img src={URL.createObjectURL(imageUrl)} />}

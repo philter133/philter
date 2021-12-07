@@ -22,8 +22,13 @@ const Philter = ({}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadState, setLoadState] = useState("idle");
   const [imageUrl, setImageUrl] = useState(null);
+
   function handleFileSelect(event) {
     setSelectedFile(event.target.files[0]);
+  }
+
+  function handleStyleSelect(event) {
+    setStyleFile(event.target.files);
   }
 
   async function onFormSubmit(event) {
@@ -34,6 +39,7 @@ const Philter = ({}) => {
     form.append("name", "scream"); //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", "small");
     setLoadState("loading");
+
     try {
       const response = await axios({
         mode: "cors",
@@ -82,6 +88,62 @@ const Philter = ({}) => {
                 name="file"
                 onChange={handleFileSelect}
               />
+              <img
+                src="https://i.ibb.co/fQxF60K/STARRY-NIGHT.jpg"
+                style={{
+                  margin: "10px",
+                  borderColor: "blue",
+                  width: "150px",
+                  height: "150px",
+                  display: "inline-flex",
+                }}
+                onClick={handleStyleSelect}
+              />
+              <img
+                src="https://i.ibb.co/VSLPHj2/CUDI.jpg"
+                style={{
+                  margin: "10px",
+                  borderColor: "blue",
+                  width: "150px",
+                  height: "150px",
+                  display: "inline-flex",
+                }}
+                onClick={handleStyleSelect}
+              />
+              <img
+                src="https://i.ibb.co/sPN1YZ6/MOSAIC.jpg"
+                style={{
+                  margin: "10px",
+                  borderColor: "blue",
+                  width: "150px",
+                  height: "150px",
+                  display: "inline-flex",
+                }}
+                onClick={handleStyleSelect}
+              />
+              <img
+                src="https://i.ibb.co/371Ng24/EDTAONISL.png"
+                style={{
+                  margin: "10px",
+                  borderColor: "blue",
+                  width: "150px",
+                  height: "150px",
+                  display: "inline-flex",
+                }}
+                onClick={handleStyleSelect}
+              />
+              <img
+                src="https://i.ibb.co/3MLrBYF/SCREAM.jpg"
+                style={{
+                  margin: "10px",
+                  borderColor: "blue",
+                  width: "150px",
+                  height: "150px",
+                  display: "inline-flex",
+                }}
+                onClick={handleStyleSelect}
+              />
+
               <Button type="submit" colorScheme="teal">
                 Submit
               </Button>

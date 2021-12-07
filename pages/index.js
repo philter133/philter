@@ -17,28 +17,22 @@ import {
 import NextLink from "next/link";
 import Section from "../components/section";
 import Paragraph from "../components/paragraph";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import Layout from "../components/layouts/article";
 import image from "next/image";
 
 export default function Home() {
   function ImagesContainer() {
     const images = [
-      "https://picsum.photos/200?random=1", //IMAGE URL FROM SRI ON FRIDAY
-      "https://picsum.photos/200?random=2", //
-      "https://picsum.photos/200?random=3",
-      "https://picsum.photos/200?random=4",
-      "https://picsum.photos/200?random=5",
-      "https://picsum.photos/200?random=6",
+      "https://i.ibb.co/fQxF60K/STARRY-NIGHT.jpg", //IMAGE URL FROM SRI ON FRIDAY
+      "https://i.ibb.co/VSLPHj2/CUDI.jpg", //
+      "https://i.ibb.co/sPN1YZ6/MOSAIC.jpg",
     ];
 
     const filteredImages = [
-      "https://picsum.photos/200?random=7", //IMAGE URL FROM SRI ON FRIDAY
-      "https://picsum.photos/200?random=8", //
-      "https://picsum.photos/200?random=9",
-      "https://picsum.photos/200?random=10",
-      "https://picsum.photos/200?random=11",
-      "https://picsum.photos/200?random=12",
+      "https://i.ibb.co/6HqCk7r/31bee301-8065-424c-8e5a-675ad171dabb.jpg", //IMAGE URL FROM SRI ON FRIDAY
+      "https://i.ibb.co/YL6ndZX/6c2f5713-f69d-4e08-a13a-0f2b9dfb6218.jpg", //
+      "https://i.ibb.co/XtmYvfw/a5bc4e41-56fa-4f64-812c-45458852be53.jpg",
     ];
 
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -63,16 +57,19 @@ export default function Home() {
 
   function ImageGridItem({ url, selected, onClick }) {
     return (
-      <img
-        src={url}
-        style={{
-          borderStyle: selected ? "solid" : "none",
-          margin: "10px",
-          display: "inline-flex",
-          borderColor: "blue",
-        }}
-        onClick={onClick}
-      />
+      <div align="center">
+        <Image
+          src={url}
+          style={{
+            margin: "10px",
+            borderColor: "blue",
+            width: "150px",
+            height: "150px",
+            display: "inline-flex",
+          }}
+          onClick={onClick}
+        />
+      </div>
     );
   }
 
@@ -171,6 +168,7 @@ export default function Home() {
                     display="inline-flex"
                     margin="25px"
                   />
+
                   <Image
                     margin="25px"
                     display="inline-flex"

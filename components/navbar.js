@@ -1,5 +1,6 @@
 import Logo from "./logo";
 import NextLink from "next/link";
+
 import {
   Container,
   Box,
@@ -21,13 +22,18 @@ const LinkItem = ({ href, path, children }) => {
   const active = path === href;
   const inactiveColor = useColorModeValue("gray200", "whiteAlpha.900");
   return (
+    
     <NextLink href={href}>
+      
       <Link
+        fontFamily={"Righteous"}
         p={2}
-        bg={active ? "grassTeal" : undefined}
+        bg={active ? "#7C8AC5" : undefined}
+        borderRadius={"10px"}
         color={active ? "#202023" : inactiveColor}
       >
         {children}
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"/> 
       </Link>
     </NextLink>
   );
@@ -41,23 +47,38 @@ const Navbar = (props) => {
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue("#ffffff40", "#20202380")}
+      bg={useColorModeValue("#EFF1F3", "#20202380")}
       style={{ backdropFilter: "blur(10px)" }}
       zIndex={1}
       {...props}
     >
+      
       <Container
         display="flex"
         p={2}
         maxW="container.md"
         wrap="wrap"
-        align="center"
         justify="space-between"
+        width={"100vw"}
+
       >
         <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-            <Logo />
-          </Heading>
+          <Link
+          href="/"
+          fontFamily={"Righteous"}
+           bgColor={"#7C8AC5"} 
+           borderStyle={"solid"} 
+           borderColor={"#7C8AC5"} 
+           borderWidth={"5px"}
+           borderRadius={"10px"}
+           fontSize={"40px"} 
+           color={"#EFF1F2"}
+           paddingRight={"30px"}
+           paddingLeft={"30px"}
+           marginRight={"10vw"}
+           as="h1" size="lg" letterSpacing={"tighter"}>
+            Philter
+          </Link>
         </Flex>
 
         <Stack
@@ -67,17 +88,15 @@ const Navbar = (props) => {
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
+          marginLeft={"4vw"}
         >
-          <LinkItem href="/developer" path={path}>
-            Developers
-          </LinkItem>
 
           <LinkItem href="/adopter" path={path}>
-            Style Adopter
+            Style Adapter
           </LinkItem>
 
           <LinkItem href="/philter" path={path}>
-            Philter
+            Filter
           </LinkItem>
 
           <LinkItem href="/restoration" path={path}>
@@ -87,10 +106,15 @@ const Navbar = (props) => {
           <LinkItem href="/gallery" path={path}>
             Gallery
           </LinkItem>
+
+          <LinkItem href="/developer" path={path}>
+            Developers
+          </LinkItem>
+
         </Stack>
 
         <Box flex={1} align="right">
-          <ThemeToggleButton />
+          <ThemeToggleButton/>
           <Box ml={2} display={{ base: "inline-block", md: "none" }}>
             {/* isLazy id="navbar-menu" */}
             <Menu>
@@ -105,7 +129,7 @@ const Navbar = (props) => {
                   <MenuItem as={Link}>Developer Page</MenuItem>
                 </NextLink>
                 <NextLink href="/adopter" passHref>
-                  <MenuItem as={Link}>Style Adopter Page</MenuItem>
+                  <MenuItem as={Link}>Style Adapter Page</MenuItem>
                 </NextLink>
                 <NextLink href="/philter" passHref>
                   <MenuItem as={Link}>Philter Page</MenuItem>
@@ -121,6 +145,13 @@ const Navbar = (props) => {
           </Box>
         </Box>
       </Container>
+      <style jsx>
+      {
+        `
+        LinkItem{color:red}
+        `
+      }
+      </style>
     </Box>
   );
 };

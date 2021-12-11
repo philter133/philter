@@ -5,7 +5,7 @@ import { WorkGridItem } from '../components/grid-item'
 
 
 const Developer = () => (
-<Layout title="Developer">
+<Layout title="Developer"> 
     <Container maxW = "container.xl">
       <Heading as="h3" fontSize={20} mb={4}>
         Developers
@@ -33,8 +33,8 @@ const Developer = () => (
           marginTop = {2}
           marginLeft = {1}
           />
-        <Container backgroundColor = "" textColor = "black" padding="5" h="266px" fontSize={12}>
-          <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
+        <Container fontFamily={"Righteous, cursive"} backgroundColor = "" textColor = "black" padding="5" h="266px" fontSize={12}>
+          <Heading fontFamily={"Righteous, cursive"}fontSize={22} paddingBottom={4} paddingTop={5}>
           Sriram Govindan
           </Heading>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -54,8 +54,8 @@ const Developer = () => (
       gridTemplateColumns = "455px 250px"
       borderRadius = {30}
       >
-        <Container backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
-          <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
+        <Container fontFamily={"Righteous, cursive"} backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
+          <Heading fontFamily={"Righteous, cursive"} fontSize={22} paddingBottom={4} paddingTop={5}>
           Hyeonmin Song
           </Heading>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -103,8 +103,8 @@ const Developer = () => (
           marginTop = {2}
           marginLeft = {1}
           />
-        <Container backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
-          <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
+        <Container fontFamily={"Righteous, cursive"} backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
+          <Heading ffontFamily={"Righteous, cursive"} ontSize={22} paddingBottom={4} paddingTop={5}>
           Patrick Chau
           </Heading>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -124,8 +124,8 @@ const Developer = () => (
       gridTemplateColumns = "455px 250px"
       borderRadius = {30}
       >
-        <Container backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
-          <Heading fontSize={22} paddingBottom={4} paddingTop={5}>
+        <Container bfontFamily={"Righteous, cursive"} ackgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
+          <Heading fontFamily={"Righteous, cursive"} fontSize={22} paddingBottom={4} paddingTop={5}>
           Ahmed Moaz
           </Heading>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 

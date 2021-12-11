@@ -27,6 +27,10 @@ const Restoration = ({}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadState, setLoadState] = useState("idle");
   const [imageUrl, setImageUrl] = useState(null);
+
+  const [inputTitle, setInputTitle] = useState('')
+  const [inputDesc, setInputDesc] = useState('')
+  
   function handleFileSelect(event) {
     setSelectedFile(event.target.files[0]);
   }
@@ -67,7 +71,7 @@ const Restoration = ({}) => {
   }
   return (
     // Description,
-    <Layout title="restoration">
+    <div style={{marginTop: "50px", background: "#EFF1F2", padding: "40px", borderRadius: "7px"}}>
       <Head>
         <title>Philter | Image Restorator</title>
         <meta name="keywords" content="restoration" />
@@ -108,15 +112,44 @@ const Restoration = ({}) => {
               />
             </div>
 
-            <Button type="submit" colorScheme="teal">
-              Submit
-            </Button>
+            <div>
+                  <div style={{fontSize:"20px" ,fontFamily: "Righteous, cursive", color:"#7C8AC5", display:"inline-flex", justifyContent:"space-around", marginTop:"10px", marginBottom:"10px", alignItems:"center"}}>
+                    <h3 >
+                      Image title:
+                    </h3>
+                    <input style={{
+                      WebkitBorderTopLeftRadius: "5px",
+                      WebkitBorderTopRightRadius: "5px",
+                      backgroundColor:"#D2D2D2",
+                      marginLeft:"20px"
+                    }} onChange={event => setInputTitle(event.target.value)} />
+                  </div>
+
+                  <div style={{fontSize:"20px" ,fontFamily: "Righteous, cursive", color:"#7C8AC5", display:"inline-flex", justifyContent:"space-around", marginTop:"10px", marginBottom:"10px", alignItems:"center"}}>
+                    <h3 >
+                      Image Description:
+                    </h3>
+                    <input style={{
+                      marginLeft:"20px",
+                      WebkitBorderTopLeftRadius: "5px",
+                      WebkitBorderTopRightRadius: "5px",
+                      backgroundColor:"#D2D2D2"
+                    }} onChange={event => setInputDesc(event.target.value)} />
+                  </div>
+                </div>  
+
+                <div style={{fontSize:"40px" ,fontFamily: "Righteous, cursive", color:"#7C8AC5", display:"flex", justifyContent:"space-around", marginTop:"10px", marginBottom:"10px", alignItems:"center"}}>
+                <Button fontSize={"30px"} btnState="btn-inactive">
+                  Submit
+                </Button>
+                </div>
+
           </form>
           {loadState === "loading" && <h3>LOADING</h3>}
           {imageUrl && <img src={URL.createObjectURL(imageUrl)} />}
         </div>
       </Container>
-    </Layout>
+    </div>
   );
 };
 

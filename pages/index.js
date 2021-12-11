@@ -81,18 +81,12 @@ export default function Home() {
       </Head>
       <Layout>
         <Container maxW="container.xl">
-          <Box
-            borderRadius="lg"
-            bg={useColorModeValue("whiteAlpha.500", "whiteAlpha.200")}
-            p={3}
-            mb={6}
-            maxW={800}
-            align="center"
-          >
-            <Heading as="h2" variant="page-tile">
-              Philter
-            </Heading>
-          </Box>
+          <div
+          style={{
+            marginTop: "20px",
+          }}>
+
+          </div>
           <Section delay={0.1}>
             <SimpleGrid
               borderRadius={30}

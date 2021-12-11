@@ -22,6 +22,7 @@ const Philter = ({}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadState, setLoadState] = useState("idle");
   const [imageUrl, setImageUrl] = useState(null);
+  const [styleFile, setStyleFile] = useState(null);
 
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
@@ -30,8 +31,9 @@ const Philter = ({}) => {
     setSelectedFile(event.target.files[0]);
   }
 
-  function handleStyleSelect(style) {
-    setStyleFile(style.target.files[0]);
+  function handleStyleSelect(styleName) {
+    setStyleFile(styleName);
+    console.log("style name:" + styleName)
   }
 
   async function onFormSubmit(event) {
@@ -40,7 +42,7 @@ const Philter = ({}) => {
     const form = new FormData();
     form.append("file", selectedFile);
 
-    form.append("name", "cudi");
+    form.append("name", styleFile);
     //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", "small");
     setLoadState("loading");
@@ -110,7 +112,6 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
               />
               <img
                 src="https://i.ibb.co/VSLPHj2/CUDI.jpg"
@@ -122,7 +123,6 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
               />
               <img
                 src="https://i.ibb.co/sPN1YZ6/MOSAIC.jpg"
@@ -134,7 +134,6 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
               />
               <img
                 src="https://i.ibb.co/371Ng24/EDTAONISL.png"
@@ -146,7 +145,6 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
               />
               <img
                 src="https://i.ibb.co/3MLrBYF/SCREAM.jpg"
@@ -158,7 +156,7 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
+                onClick={() => handleStyleSelect("scream")}
               />
 
               <div>

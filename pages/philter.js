@@ -24,11 +24,12 @@ const Philter = ({}) => {
   const [loadState, setLoadState] = useState("idle");
   const [imageUrl, setImageUrl] = useState(null);
   const [styleFile, setStyleFile] = useState(null);
-  const [imageData, setImageData] = useState(null);
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
   const [inputTag, setInputTag] = useState("");
-
+  const [imagePath, setImagePath] = useState("");
+  const [contentId, setContentId] = useState("");
+  const [genId, setGenId] = useState("");
   const [highButtonState, setHighState] = useState("btn-inactive");
   const [medButtonState, setMedState] = useState("btn-active");
   const [lowButtonState, setLowState] = useState("btn-inactive");
@@ -37,8 +38,6 @@ const Philter = ({}) => {
   var styleTag;
   const onResolutionChange = (newResol) => {
     resolution = newResol;
-
-    console.log("button clicked" + resolution);
   };
 
   function handleFileSelect(event) {
@@ -49,87 +48,15 @@ const Philter = ({}) => {
     // styleName(styleName);
     // styleTag = styleName;
     setStyleFile(styleName);
-    console.log("style name:" + styleName);
   };
-
-  async function onSubmit() {
-    const form2 = new FormData();
-    form2.append("file", imageData);
-    form2.append("title", inputTitle);
-    form2.append("description", inputDesc);
-    form2.append("generated", "True");
-
-    try {
-      const response = await axios({
-        mode: "cors",
-        method: "post",
-        url: "http://127.0.0.1:5000/save-image",
-        data: form,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      const savePicInfo = await response.data.imageId;
-      idCluster.push(savePicInfo);
-
-      console.log(idCluster);
-      setLoadState("idle");
-    } catch (error) {
-      console.log(error);
-      setLoadState("error"); //sets error when the data doesn't go through
-    }
-    if (styleFile === "mosaic") {
-      //cudi, edtaonisl, mosaic, scream, starrynight.
-      idCluster.push("188d17de-2acf-4585-bfb0-697cf1fcafb5");
-    } else if (styleFile === "cudi") {
-      idCluster.push("ebe40eb3-69d2-4327-937a-4590da174b83");
-    } else if (styleFile === "edtaonisl") {
-      idCluster.push("38f15b9b-cb01-4346-a59d-571666497cfe");
-    } else if (styleFile === "scream") {
-      idCluster.push("2abe1505-86d6-4a19-a03a-ae513e1c5668");
-    } else {
-      idCluster.push("886173ee-71c0-4f84-beea-cd9f68dee696");
-    }
-    //
-    // console.log("save");
-    console.log(styleTag);
-
-    console.log(idCluster);
-    const form = new FormData();
-    form.append("file", selectedFile);
-    form.append("title", "CONTENT IMAGE");
-    form.append("description", "Image which the style was applied on");
-    form.append("generated", "false");
-
-    try {
-      const response = await axios({
-        mode: "cors",
-        method: "post",
-        url: "http://127.0.0.1:5000/save-image",
-        data: form,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      const savePicInfo = await response.data.imageId;
-      idCluster.push(savePicInfo);
-
-      console.log(idCluster);
-      setLoadState("idle");
-    } catch (error) {
-      console.log(error);
-      setLoadState("error"); //sets error when the data doesn't go through
-    }
-  }
 
   async function onFormSubmit(event) {
     event.preventDefault();
     console.log("submit");
     const form = new FormData();
     form.append("file", selectedFile);
-
+    form.append("title", inputTitle);
+    form.append("description", inputDesc);
     form.append("name", styleFile);
     //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", resolution);
@@ -144,40 +71,17 @@ const Philter = ({}) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-
-        responseType: "blob",
       });
-      const imgBlob = await response.data;
-      setImageUrl(imgBlob);
-      console.log(imgBlob);
-      // URL.createObjectURL(imageUrl)
+      // const imagePath = await response.data.displayUrl;
+      // const imageId = await response.data.genId;
+      // const contentId = await response.data.contentId;
+      const payload = await response.data;
+      const contentId = payload.contentId;
+      const genId = payload.genId;
+      setContentId(contentId);
+      setGenId(genId);
+      setImagePath(payload.displayUrl);
 
-      console.log(response);
-      // TODO: Get image url from the response aned set state
-      // setImageUrl(response.data.url);
-      setLoadState("idle");
-    } catch (error) {
-      console.log(error);
-      setLoadState("error"); //sets error when the data doesn't go through
-    }
-
-    try {
-      const response = await axios({
-        mode: "cors",
-        method: "post",
-        url: "http://127.0.0.1:5000/apply-filter",
-        data: form,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const imgBinary = await response.data;
-      setImageData(imgBinary);
-      console.log(imgBinary);
-
-      // URL.createObjectURL(imageUrl)
-
-      console.log(response);
       // TODO: Get image url from the response aned set state
       // setImageUrl(response.data.url);
       setLoadState("idle");
@@ -186,6 +90,49 @@ const Philter = ({}) => {
       setLoadState("error"); //sets error when the data doesn't go through
     }
   }
+
+  async function onSubmit() {
+    if (styleFile === "mosaic") {
+      //cudi, edtaonisl, mosaic, scream, starrynight.
+      idCluster.push("188d17de-2acf-4585-bfb0-697cf1fcafb5");
+    } else if (styleFile === "cudi") {
+      idCluster.push("ebe40eb3-69d2-4327-937a-4590da174b83");
+    } else if (styleFile === "edtaonisl") {
+      idCluster.push("38f15b9b-cb01-4346-a59d-571666497cfe");
+    } else if (styleFile === "scream") {
+      idCluster.push("2abe1505-86d6-4a19-a03a-ae513e1c5668");
+    } else {
+      idCluster.push("886173ee-71c0-4f84-beea-cd9f68dee696");
+    }
+    idCluster.push(genId);
+    idCluster.push(contentId);
+    const form = new FormData();
+    form.append("userId", "philter2021@gmail.com");
+    form.append("tag", inputTag);
+    form.append("algorithm", "FILTER");
+    form.append("imageList", JSON.stringify(idCluster));
+
+    console.log(idCluster);
+    console.log(JSON.stringify(idCluster));
+
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000//save-cluster",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error"); //sets error when the data doesn't go through
+    }
+  }
+
   return (
     <div
       style={{
@@ -395,7 +342,6 @@ const Philter = ({}) => {
                   display: "flex",
                   justifyContent: "space-around",
                   marginTop: "10px",
-                  marginBottom: "10px",
                   alignItems: "center",
                 }}
               >
@@ -414,7 +360,7 @@ const Philter = ({}) => {
             </div>
           </form>
           {loadState === "loading" && <h3>LOADING</h3>}
-          {imageUrl && <img src={URL.createObjectURL(imageUrl)} />}
+          {imagePath && <img src={imagePath} />}
         </div>
       </Container>
     </div>

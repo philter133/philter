@@ -1,5 +1,5 @@
-import Logo from "./logo";
 import NextLink from "next/link";
+
 
 import {
   Container,
@@ -15,8 +15,12 @@ import {
   IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
+
+
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ThemeToggleButton from "./theme-toggle-button.js";
+import Login from "./Login";
+
 
 const LinkItem = ({ href, path, children }) => {
   const active = path === href;
@@ -28,7 +32,7 @@ const LinkItem = ({ href, path, children }) => {
       <Link
         fontFamily={"Righteous"}
         p={2}
-        bg={active ? "#7C8AC5" : undefined}
+        bg={active ? useColorModeValue("#7C8AC5", "#EFF1F3") : undefined}
         borderRadius={"10px"}
         color={active ? "#202023" : inactiveColor}
       >
@@ -40,14 +44,20 @@ const LinkItem = ({ href, path, children }) => {
 };
 
 const Navbar = (props) => {
+  var profile;
   const { path } = props;
+
+  const onLoginSuccess = (newProfile) => {
+    profile = newProfile;
+  };
+
 
   return (
     <Box
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue("#EFF1F3", "#20202380")}
+      bg={useColorModeValue("#EFF1F3", "#202023")}
       style={{ backdropFilter: "blur(10px)" }}
       zIndex={1}
       {...props}
@@ -66,13 +76,13 @@ const Navbar = (props) => {
           <Link
           href="/"
           fontFamily={"Righteous"}
-           bgColor={"#7C8AC5"} 
+           bgColor={useColorModeValue("#7C8AC5", "#EFF1F3")} 
            borderStyle={"solid"} 
-           borderColor={"#7C8AC5"} 
+           borderColor={useColorModeValue("#7C8AC5", "EFF1F3")} 
            borderWidth={"5px"}
            borderRadius={"10px"}
            fontSize={"40px"} 
-           color={"#EFF1F2"}
+           color={useColorModeValue("#EFF1F3", "#202023")}
            paddingRight={"30px"}
            paddingLeft={"30px"}
            marginRight={"10vw"}
@@ -110,6 +120,9 @@ const Navbar = (props) => {
           <LinkItem href="/developer" path={path}>
             Developers
           </LinkItem>
+
+          <Login/>
+
 
         </Stack>
 

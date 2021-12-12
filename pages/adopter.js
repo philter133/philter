@@ -10,9 +10,7 @@ import Section from "../components/section";
 import Layout from "../components/layouts/article";
 import { WorkGridItem } from "../components/grid-item";
 import Head from "next/head";
-import React, { useState } from "react";
 import SliderA from '../components/SliderA'
-
 
 export default function Adopter({}) {
   <Layout title="Developer" />;
@@ -24,6 +22,7 @@ export default function Adopter({}) {
   var value = 50;
   var resolution = "Med";
 
+  
   const onTextChange = (newVal, field) => 
   {
 
@@ -36,22 +35,11 @@ export default function Adopter({}) {
   const onResolutionChange = (newResol) => {
     resolution = newResol;
 
-    setLowState("btn-inactive");
-    setMedState("btn-inactive");
-    setHighState("btn-inactive");
-    let btnState = "btn-inactive";
-    if (newResol === "High") {
-      setHighState("btn-active");
-    } else if (newResol === "Med") {
-      setMedState("btn-active");
-    } else if (newResol === "Low") {
-      setLowState("btn-active");
-    }
-
     console.log("button clicked" + resolution);
     console.log(value);
     console.log("Title: " + inputTitle);
     console.log("desc:" + inputDesc);
+    console.log("prof:", userProf);
   };
   const generateImage = () => {
     //implement image generation here
@@ -120,19 +108,19 @@ export default function Adopter({}) {
         <h3>Resolution:</h3>
         <div>
           <Button marginRight={"10px"}
-            btnState={highButtonState}
+            btnstate={highButtonState}
             onClick={() => onResolutionChange("High")}
           >
             High
           </Button>
           <Button marginRight={"10px"}
-            btnState={medButtonState}
+            btnstate={medButtonState}
             onClick={() => onResolutionChange("Med")}
           >
             Med
           </Button>
           <Button
-            btnState={lowButtonState}
+            btnstate={lowButtonState}
             onClick={() => onResolutionChange("Low")}
           >
             Low
@@ -167,7 +155,7 @@ export default function Adopter({}) {
       </div>
 
       <div style={{fontSize:"40px" ,fontFamily: "Righteous, cursive", color:"#7C8AC5", display:"flex", justifyContent:"space-around", marginTop:"10px", marginBottom:"10px", alignItems:"center"}}>
-        <Button fontSize={"30px"} btnState="btn-inactive" onClick={() => generateImage()}>
+        <Button fontSize={"30px"} btnstate="btn-inactive" onClick={() => generateImage()}>
           Generate
         </Button>
       </div>

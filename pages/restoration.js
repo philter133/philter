@@ -180,7 +180,7 @@ const Restoration = ({}) => {
               }}
             >
               <Button type="submit" fontSize={"30px"} btnState="btn-inactive">
-                Submit
+                Generate
               </Button>
               <Button type="save" fontSize={"30px"} btnState="btn-inactive">
                 Save

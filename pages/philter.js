@@ -19,19 +19,109 @@ import Head from "next/head";
 import axios from "axios";
 
 const Philter = ({}) => {
+  const idCluster = [];
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadState, setLoadState] = useState("idle");
   const [imageUrl, setImageUrl] = useState(null);
-
+  const [styleFile, setStyleFile] = useState(null);
+  const [imageData, setImageData] = useState(null);
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
+  const [inputTag, setInputTag] = useState("");
+
+  const [highButtonState, setHighState] = useState("btn-inactive");
+  const [medButtonState, setMedState] = useState("btn-active");
+  const [lowButtonState, setLowState] = useState("btn-inactive");
+
+  var resolution = "large";
+  var styleTag;
+  const onResolutionChange = (newResol) => {
+    resolution = newResol;
+
+    console.log("button clicked" + resolution);
+  };
 
   function handleFileSelect(event) {
     setSelectedFile(event.target.files[0]);
   }
 
-  function handleStyleSelect(style) {
-    setStyleFile(style.target.files[0]);
+  const handleStyleSelect = (styleName) => {
+    // styleName(styleName);
+    // styleTag = styleName;
+    setStyleFile(styleName);
+    console.log("style name:" + styleName);
+  };
+
+  async function onSubmit() {
+    const form2 = new FormData();
+    form2.append("file", imageData);
+    form2.append("title", inputTitle);
+    form2.append("description", inputDesc);
+    form2.append("generated", "True");
+
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000/save-image",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const savePicInfo = await response.data.imageId;
+      idCluster.push(savePicInfo);
+
+      console.log(idCluster);
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error"); //sets error when the data doesn't go through
+    }
+    if (styleFile === "mosaic") {
+      //cudi, edtaonisl, mosaic, scream, starrynight.
+      idCluster.push("188d17de-2acf-4585-bfb0-697cf1fcafb5");
+    } else if (styleFile === "cudi") {
+      idCluster.push("ebe40eb3-69d2-4327-937a-4590da174b83");
+    } else if (styleFile === "edtaonisl") {
+      idCluster.push("38f15b9b-cb01-4346-a59d-571666497cfe");
+    } else if (styleFile === "scream") {
+      idCluster.push("2abe1505-86d6-4a19-a03a-ae513e1c5668");
+    } else {
+      idCluster.push("886173ee-71c0-4f84-beea-cd9f68dee696");
+    }
+    //
+    // console.log("save");
+    console.log(styleTag);
+
+    console.log(idCluster);
+    const form = new FormData();
+    form.append("file", selectedFile);
+    form.append("title", "CONTENT IMAGE");
+    form.append("description", "Image which the style was applied on");
+    form.append("generated", "false");
+
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000/save-image",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const savePicInfo = await response.data.imageId;
+      idCluster.push(savePicInfo);
+
+      console.log(idCluster);
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error"); //sets error when the data doesn't go through
+    }
   }
 
   async function onFormSubmit(event) {
@@ -40,9 +130,9 @@ const Philter = ({}) => {
     const form = new FormData();
     form.append("file", selectedFile);
 
-    form.append("name", "cudi");
+    form.append("name", styleFile);
     //cudi, edtaonisl, mosaic, scream, starrynight.
-    form.append("size", "small");
+    form.append("size", resolution);
     setLoadState("loading");
 
     try {
@@ -54,10 +144,36 @@ const Philter = ({}) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+
         responseType: "blob",
       });
       const imgBlob = await response.data;
       setImageUrl(imgBlob);
+      console.log(imgBlob);
+      // URL.createObjectURL(imageUrl)
+
+      console.log(response);
+      // TODO: Get image url from the response aned set state
+      // setImageUrl(response.data.url);
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error"); //sets error when the data doesn't go through
+    }
+
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000/apply-filter",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const imgBinary = await response.data;
+      setImageData(imgBinary);
+      console.log(imgBinary);
 
       // URL.createObjectURL(imageUrl)
 
@@ -110,7 +226,7 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
+                onClick={() => handleStyleSelect("starrynight")}
               />
               <img
                 src="https://i.ibb.co/VSLPHj2/CUDI.jpg"
@@ -122,7 +238,7 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
+                onClick={() => handleStyleSelect("cudi")}
               />
               <img
                 src="https://i.ibb.co/sPN1YZ6/MOSAIC.jpg"
@@ -134,7 +250,7 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
+                onClick={() => handleStyleSelect("mosaic")}
               />
               <img
                 src="https://i.ibb.co/371Ng24/EDTAONISL.png"
@@ -146,7 +262,7 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
+                onClick={() => handleStyleSelect("edtaonisl")}
               />
               <img
                 src="https://i.ibb.co/3MLrBYF/SCREAM.jpg"
@@ -158,9 +274,45 @@ const Philter = ({}) => {
                   height: "220px",
                   display: "inline-flex",
                 }}
-                onClick={handleStyleSelect}
+                onClick={() => handleStyleSelect("scream")}
               />
 
+              <div
+                style={{
+                  fontSize: "25px",
+                  fontFamily: "Righteous, cursive",
+                  color: "#7C8AC5",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  marginTop: "30px",
+                  marginBottom: "10px",
+                  alignItems: "center",
+                }}
+              >
+                <h3>Resolution:</h3>
+                <div>
+                  <Button
+                    marginRight={"10px"}
+                    btnState={highButtonState}
+                    onClick={() => onResolutionChange("small")}
+                  >
+                    Small
+                  </Button>
+                  <Button
+                    marginRight={"10px"}
+                    btnState={medButtonState}
+                    onClick={() => onResolutionChange("medium")}
+                  >
+                    Medium
+                  </Button>
+                  <Button
+                    btnState={lowButtonState}
+                    onClick={() => onResolutionChange("mega")}
+                  >
+                    Large
+                  </Button>
+                </div>
+              </div>
               <div>
                 <div
                   style={{
@@ -213,6 +365,30 @@ const Philter = ({}) => {
 
               <div
                 style={{
+                  fontSize: "20px",
+                  fontFamily: "Righteous, cursive",
+                  color: "#7C8AC5",
+                  display: "inline-flex",
+                  justifyContent: "space-around",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                  alignItems: "center",
+                }}
+              >
+                <h3>Image Tag:</h3>
+                <input
+                  style={{
+                    marginLeft: "20px",
+                    WebkitBorderTopLeftRadius: "5px",
+                    WebkitBorderTopRightRadius: "5px",
+                    backgroundColor: "#D2D2D2",
+                  }}
+                  onChange={(event) => setInputTag(event.target.value)}
+                />
+              </div>
+
+              <div
+                style={{
                   fontSize: "40px",
                   fontFamily: "Righteous, cursive",
                   color: "#7C8AC5",
@@ -224,9 +400,14 @@ const Philter = ({}) => {
                 }}
               >
                 <Button type="submit" fontSize={"30px"} btnState="btn-inactive">
-                  Submit
+                  Generate
                 </Button>
-                <Button type="save" fontSize={"30px"} btnState="btn-inactive">
+
+                <Button
+                  onClick={() => onSubmit()}
+                  fontSize={"30px"}
+                  btnState="btn-inactive"
+                >
                   Save
                 </Button>
               </div>

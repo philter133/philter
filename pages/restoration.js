@@ -91,23 +91,6 @@ const Restoration = ({}) => {
           </div>
           <form onSubmit={onFormSubmit}>
             <div>
-              {/*
-              <input
-                type="Description"
-                placeholder="Please enter Description"
-                name="Description"
-              ></input>
-              <input
-                type="tag"
-                placeholder="Please enter tag!"
-                name="tag"
-              ></input>
-              <input
-                type="submit"
-                style="margin-top: 1px; margin-bottom: 15px; margin-right: 10px;"
-                value="Send"
-                name="message"
-              ></input> */}
               <label>Select File</label>
               <input
                 type="file"

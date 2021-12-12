@@ -26,9 +26,7 @@ const LinkItem = ({ href, path, children }) => {
   const active = path === href;
   const inactiveColor = useColorModeValue("gray200", "whiteAlpha.900");
   return (
-    
     <NextLink href={href}>
-      
       <Link
         fontFamily={"Righteous"}
         p={2}
@@ -37,7 +35,10 @@ const LinkItem = ({ href, path, children }) => {
         color={active ? "#202023" : inactiveColor}
       >
         {children}
-        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"/> 
+        <link
+          href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
+          rel="stylesheet"
+        />
       </Link>
     </NextLink>
   );
@@ -62,7 +63,6 @@ const Navbar = (props) => {
       zIndex={1}
       {...props}
     >
-      
       <Container
         display="flex"
         p={2}
@@ -70,7 +70,6 @@ const Navbar = (props) => {
         wrap="wrap"
         justify="space-between"
         width={"100vw"}
-
       >
         <Flex align="center" mr={5}>
           <Link
@@ -100,7 +99,6 @@ const Navbar = (props) => {
           mt={{ base: 4, md: 0 }}
           marginLeft={"4vw"}
         >
-
           <LinkItem href="/adopter" path={path}>
             Style Adapter
           </LinkItem>
@@ -127,7 +125,7 @@ const Navbar = (props) => {
         </Stack>
 
         <Box flex={1} align="right">
-          <ThemeToggleButton/>
+          <ThemeToggleButton />
           <Box ml={2} display={{ base: "inline-block", md: "none" }}>
             {/* isLazy id="navbar-menu" */}
             <Menu>
@@ -159,11 +157,11 @@ const Navbar = (props) => {
         </Box>
       </Container>
       <style jsx>
-      {
-        `
-        LinkItem{color:red}
-        `
-      }
+        {`
+          LinkItem {
+            color: red;
+          }
+        `}
       </style>
     </Box>
   );

@@ -23,52 +23,87 @@ import { WorkGridItem } from "../components/grid-item";
 import Head from "next/head";
 import axios from "axios";
 
+
 const Restoration = ({}) => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [loadState, setLoadState] = useState("idle");
-  const [imageUrl, setImageUrl] = useState(null);
 
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
+  const [inputTag, setInputTag] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loadState, setLoadState] = useState("idle");
+  const [imageUrl, setImageUrl] = useState(null);
+  const [genId, setGenId] = useState("");
+  const [contentId, setContentId] = useState("");
 
+ const idCluster = [];
+
+
+  async function handleSave()
+  {
+    idCluster.push(genId);
+    idCluster.push(contentId);
+    console.log(idCluster);
+    console.log("string:" + JSON.stringify(idCluster));
+    const form = new FormData();
+    form.append("userId", "philter2021@gmail.com");
+    form.append("tag", inputTag);
+    form.append("algorithm", "BW");
+    form.append("imageList", JSON.stringify(idCluster));
+
+
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000//save-cluster",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error"); //sets error when the data doesn't go through
+    }
+  }
   function handleFileSelect(event) {
     setSelectedFile(event.target.files[0]);
   }
 
   async function onFormSubmit(event) {
     event.preventDefault();
-    console.log("submit");
     const form = new FormData();
     form.append("file", selectedFile);
+    form.append("title", inputTitle);
+    form.append("description", inputDesc);
 
     setLoadState("loading");
     try {
       const response = await axios({
         mode: "cors",
         method: "post",
-        url: "http://127.0.0.1:5000/bw-color", // change the URL to Image Restorator filter later
+        url: "http://127.0.0.1:5000/bw-color",
         data: form,
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        responseType: "blob",
       });
-      const imgBlob = await response.data;
-      setImageUrl(imgBlob);
-
-      // URL.createObjectURL(imageUrl)
-
-      console.log(response);
-      // TODO: Get image url from the response aned set state
-      // setImageUrl(response.data.url);
+      const payload = await response.data;
+      setContentId(payload.contentId);
+      setGenId(payload.genId);
+      setImageUrl(payload.displayUrl);
+      
       setLoadState("idle");
     } catch (error) {
       console.log(error);
       setLoadState("error");
     }
   }
+
+
   return (
-    // Description,
     <div
       style={{
         marginTop: "50px",
@@ -99,30 +134,54 @@ const Restoration = ({}) => {
                 onChange={handleFileSelect}
               />
             </div>
-
             <div>
-              <div
-                style={{
-                  fontSize: "20px",
-                  fontFamily: "Righteous, cursive",
-                  color: "#7C8AC5",
-                  display: "inline-flex",
-                  justifyContent: "space-around",
-                  marginTop: "10px",
-                  marginBottom: "10px",
-                  alignItems: "center",
-                }}
-              >
-                <h3>Image title:</h3>
-                <input
+                <div
                   style={{
-                    WebkitBorderTopLeftRadius: "5px",
-                    WebkitBorderTopRightRadius: "5px",
-                    backgroundColor: "#D2D2D2",
-                    marginLeft: "20px",
+                    fontSize: "20px",
+                    fontFamily: "Righteous, cursive",
+                    color: "#7C8AC5",
+                    display: "inline-flex",
+                    justifyContent: "space-around",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                    alignItems: "center",
                   }}
-                  onChange={(event) => setInputTitle(event.target.value)}
-                />
+                >
+                  <h3>Image title:</h3>
+                  <input
+                    style={{
+                      WebkitBorderTopLeftRadius: "5px",
+                      WebkitBorderTopRightRadius: "5px",
+                      backgroundColor: "#D2D2D2",
+                      marginLeft: "88px",
+                    }}
+                    onChange={(event) => setInputTitle(event.target.value)}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "Righteous, cursive",
+                    color: "#7C8AC5",
+                    display: "inline-flex",
+                    justifyContent: "space-around",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                    alignItems: "center",
+                  }}
+                >
+                  <h3>Image Description:</h3>
+                  <input
+                    style={{
+                      marginLeft: "20px",
+                      WebkitBorderTopLeftRadius: "5px",
+                      WebkitBorderTopRightRadius: "5px",
+                      backgroundColor: "#D2D2D2",
+                    }}
+                    onChange={(event) => setInputDesc(event.target.value)}
+                  />
+                </div>
               </div>
 
               <div
@@ -137,19 +196,17 @@ const Restoration = ({}) => {
                   alignItems: "center",
                 }}
               >
-                <h3>Image Description:</h3>
+                <h3>Image Tag:</h3>
                 <input
                   style={{
-                    marginLeft: "20px",
+                    marginLeft: "90px",
                     WebkitBorderTopLeftRadius: "5px",
                     WebkitBorderTopRightRadius: "5px",
                     backgroundColor: "#D2D2D2",
                   }}
-                  onChange={(event) => setInputDesc(event.target.value)}
+                  onChange={(event) => setInputTag(event.target.value)}
                 />
               </div>
-            </div>
-
             <div
               style={{
                 fontSize: "40px",
@@ -162,16 +219,30 @@ const Restoration = ({}) => {
                 alignItems: "center",
               }}
             >
-              <Button type="submit" fontSize={"30px"} btnState="btn-inactive">
+
+              
+              <Button type="submit" fontSize={"30px"}>
                 Generate
               </Button>
-              <Button type="save" fontSize={"30px"} btnState="btn-inactive">
+              
+              <Button type="save" fontSize={"30px"} onClick={() => handleSave()}>
                 Save
               </Button>
             </div>
           </form>
-          {loadState === "loading" && <h3>LOADING</h3>}
-          {imageUrl && <img src={URL.createObjectURL(imageUrl)} />}
+          {loadState === "loading" && <h3 style={{
+                  fontSize: "25px",
+                  fontFamily: "Righteous, cursive",
+                  color: "#7C8AC5",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  marginTop: "30px",
+                  marginBottom: "10px",
+                  alignItems: "center",
+                }}>LOADING</h3>}
+          {imageUrl && 
+          <div style={{display:"flex", justifyContent: "space-evenly", marginTop: "25px"}}>
+            <img  src={imageUrl}/></div>}
         </div>
       </Container>
     </div>

@@ -104,7 +104,7 @@ const Developer = () => (
           marginLeft = {1}
           />
         <Container fontFamily={"Righteous, cursive"} backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
-          <Heading ffontFamily={"Righteous, cursive"} ontSize={22} paddingBottom={4} paddingTop={5}>
+          <Heading fontFamily={"Righteous, cursive"} fontSize={22} paddingBottom={4} paddingTop={5}>
           Patrick Chau
           </Heading>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -124,7 +124,7 @@ const Developer = () => (
       gridTemplateColumns = "455px 250px"
       borderRadius = {30}
       >
-        <Container bfontFamily={"Righteous, cursive"} ackgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
+        <Container fontFamily={"Righteous, cursive"} backgroundColor = "" textColor = "black" padding="5" h="266px"  fontSize={12}>
           <Heading fontFamily={"Righteous, cursive"} fontSize={22} paddingBottom={4} paddingTop={5}>
           Ahmed Moaz
           </Heading>

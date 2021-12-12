@@ -35,22 +35,14 @@ const LinkItem = ({ href, path, children }) => {
         color={active ? "#202023" : inactiveColor}
       >
         {children}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
-          rel="stylesheet"
-        />
       </Link>
     </NextLink>
   );
 };
 
 const Navbar = (props) => {
-  var profile;
   const { path } = props;
 
-  const onLoginSuccess = (newProfile) => {
-    profile = newProfile;
-  };
 
 
   return (
@@ -156,13 +148,6 @@ const Navbar = (props) => {
           </Box>
         </Box>
       </Container>
-      <style jsx>
-        {`
-          LinkItem {
-            color: red;
-          }
-        `}
-      </style>
     </Box>
   );
 };

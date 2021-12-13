@@ -20,9 +20,9 @@ export default function Adopter({}) {
 
   const idCluster = [];
   const [loadState, setLoadState] = useState("idle");
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputTag, setInputTag] = useState("");
-  const [inputDesc, setInputDesc] = useState("");
+  const [inputTitleAdapter, setInputTitleAdapter] = useState(" ");
+  const [inputTagAdapter, setInputTagAdapter] = useState(" ");
+  const [inputDescAdapter, setInputDescAdapter] = useState(" ");
   const [inputEpoch, setInputEpoch] = useState(1);
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectedContent, setSelectedConent] = useState(null);
@@ -51,7 +51,7 @@ export default function Adopter({}) {
 
     const form = new FormData();
     form.append("userId", "philter2021@gmail.com");
-    form.append("tag", inputTag);
+    form.append("tag", inputTagAdapter);
     form.append("algorithm", "STYLE");
     form.append("imageList", JSON.stringify(idCluster));
 
@@ -100,8 +100,8 @@ export default function Adopter({}) {
     form.append("styleWeight", "1e5");
     form.append("contentWeight", "1e-2");
     form.append("epochs", inputEpoch);
-    form.append("title", inputTitle);
-    form.append("description", inputDesc);
+    form.append("title", inputTitleAdapter);
+    form.append("description", inputDescAdapter);
 
     setLoadState("loading");
     try {
@@ -137,10 +137,6 @@ export default function Adopter({}) {
   const onResolutionChange = (newResol) => {
     resolution = newResol;
 
-    console.log("button clicked" + resolution);
-    console.log(value);
-    console.log("Title: " + inputTitle);
-    console.log("desc:" + inputDesc);
   };
   
   const generateImage = () => {
@@ -305,6 +301,7 @@ export default function Adopter({}) {
               WebkitBorderTopRightRadius: "5px",
               backgroundColor: "#D2D2D2",
             }}
+            placeholder={" "}
             onChange={(event) => setInputEpoch(event.target.value)}
           />
         </div>
@@ -329,7 +326,8 @@ export default function Adopter({}) {
               backgroundColor: "#D2D2D2",
               marginLeft: "88px",
             }}
-            onChange={(event) => setInputTitle(event.target.value)}
+            placeholder={" "}
+            onChange={(event) => setInputTitleAdapter(event.target.value)}
           />
         </div>
 
@@ -353,7 +351,7 @@ export default function Adopter({}) {
               WebkitBorderTopRightRadius: "5px",
               backgroundColor: "#D2D2D2",
             }}
-            onChange={(event) => setInputDesc(event.target.value)}
+            onChange={(event) => setInputDescAdapter(event.target.value)}
           />
         </div>
 
@@ -377,7 +375,8 @@ export default function Adopter({}) {
               WebkitBorderTopRightRadius: "5px",
               backgroundColor: "#D2D2D2",
             }}
-            onChange={(event) => setInputTag(event.target.value)}
+            defaultValue={""}
+            onChange={(event) => setInputTagAdapter(event.target.value)}
           />
         </div>
 

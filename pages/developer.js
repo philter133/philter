@@ -1,3 +1,9 @@
+/**
+ * The static-developer page giving the names and descriptions of the various
+ * developers that worked on the project. There are 4 boxes, that show a styled image
+ * and the name+descriptions of the developers.
+ * Utilizes NextJS and Chakra-UI.
+ */
 import {
   Container,
   Heading,
@@ -9,12 +15,14 @@ import Section from "../components/section";
 import Layout from "../components/layouts/article";
 import { WorkGridItem } from "../components/grid-item";
 
+//The Developers
 const Developer = () => (
   <Layout title="Developer">
     <Container maxW="container.xl">
       <Heading as="h3" fontSize={20} mb={4}>
         Developers
       </Heading>
+      {/**First SimpleGrid to split a section into 2 columns for image and description+name */}
       <SimpleGrid
         columns="2"
         spacing="20px"
@@ -25,6 +33,7 @@ const Developer = () => (
         gridTemplateColumns="250px 455px"
         borderRadius={30}
       >
+        {/**Sriram's Styled Image */}
         <Image
           boxSize="250px"
           objectFit="cover"
@@ -38,6 +47,7 @@ const Developer = () => (
           marginTop={2}
           marginLeft={1}
         />
+        {/**Sriram's Description */}
         <Container
           fontFamily={"Righteous, cursive"}
           backgroundColor=""
@@ -66,6 +76,7 @@ const Developer = () => (
         </Container>
       </SimpleGrid>
       <Container h="50px" />
+      {/**Second SimpleGrid to split a section into 2 columns for description+name then image */}
       <SimpleGrid
         columns="2"
         spacing="20px"
@@ -76,6 +87,7 @@ const Developer = () => (
         gridTemplateColumns="455px 250px"
         borderRadius={30}
       >
+        {/**Hyeonmin's Description */}
         <Container
           fontFamily={"Righteous, cursive"}
           backgroundColor=""
@@ -103,6 +115,7 @@ const Developer = () => (
           </h1>
           Worked on front-end and API call.
         </Container>
+        {/**Hyeonmin's Styled Image */}
         <Image
           boxSize="250px"
           objectFit="cover"
@@ -119,7 +132,7 @@ const Developer = () => (
       </SimpleGrid>
 
       <Divider orientation="horizontal" color="black" h="50px" />
-
+      {/**Third SimpleGrid to split a section into 2 columns for image and description+name */}
       <SimpleGrid
         columns="2"
         spacing="20px"
@@ -130,6 +143,7 @@ const Developer = () => (
         gridTemplateColumns="250px 455px"
         borderRadius={30}
       >
+        {/**Patrick's Styled image */}
         <Image
           boxSize="250px"
           objectFit="cover"
@@ -143,6 +157,7 @@ const Developer = () => (
           marginTop={2}
           marginLeft={1}
         />
+        {/**Patrick's Description */}
         <Container
           fontFamily={"Righteous, cursive"}
           backgroundColor=""
@@ -171,6 +186,7 @@ const Developer = () => (
         </Container>
       </SimpleGrid>
       <Container h="50px" />
+      {/**Fourth SimpleGrid to split a section into 2 columns for image and description+name */}
       <SimpleGrid
         columns="2"
         spacing="20px"
@@ -181,6 +197,7 @@ const Developer = () => (
         gridTemplateColumns="455px 250px"
         borderRadius={30}
       >
+        {/**Ahmed's Description */}
         <Container
           fontFamily={"Righteous, cursive"}
           backgroundColor=""
@@ -207,6 +224,7 @@ const Developer = () => (
           </h1>
           Worked on front-end, styling and API calls
         </Container>
+        {/**Ahmed's Description */}
         <Image
           boxSize="250px"
           objectFit="cover"

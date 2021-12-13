@@ -1,7 +1,9 @@
 # Welcome to Philter
 
-For full source code visit [github.com](https://github.com/philter133).
-## Installation
+For the frontend source code click this link [github.com](https://github.com/philter133).
+For the backend source code click this link [github.com](https://github.com/philter133/RealTimeStyleTransfer/tree/develop).
+
+## Documentation Installation
 In order to view the mkdocs, you need to type these commands in the terminal
 ```bash
 pip install mkdocs
@@ -20,10 +22,12 @@ the link will look like this http://127.0.0.1:8000/
 
 Now you are ready to see our projects in mkdocs.
 
-## Other requirements
-After downloading our repo, run below command to install all required modules.
+## Running the project
+Frontend Requirements
+- npm must be installed
 
-Make sure you have nodeJS and npm installed on your system.
+In order to start the frontend server make sure to unzip the frontend project
+then install the project with these lines
 
 ```bash
 npm install 
@@ -31,13 +35,38 @@ npm install next
 npm install react-google-login
 ```
 
-How to Run our front-end application
+In order to start the frontend server make sure to unzip the frontend project
+then install the project with these lines
+
+from there simply run it with these lines
+
 ```bash
 npm run dev
 ```
-You will get a link prompted, then direct to that link the link will look like this http://localhost:3000
 
-## Project layout
+Backend Requirements
+- 3.10 > python > 3.7
+
+In order to start the Backend server make sure to unzip the Backend project
+then install the project with these lines
+
+```bash
+python3 -m venv env 
+source env/bin/activate
+pip install -r requirements.txt
+```
+
+from there simply run it with these lines
+
+```bash
+flask run
+```
+
+Now the project is ready to be ran
+
+
+## Project layout Frontend
+To see the backend documentation go to the backend link at the top
 ```Javascript
 .
 ├── README.md

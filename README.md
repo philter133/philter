@@ -319,7 +319,6 @@ const Philter = ({}) => {
   const idCluster = [];
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadState, setLoadState] = useState("idle");
-  const [imageUrl, setImageUrl] = useState(null);
   const [styleFile, setStyleFile] = useState(null);
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
@@ -327,12 +326,9 @@ const Philter = ({}) => {
   const [imagePath, setImagePath] = useState("");
   const [contentId, setContentId] = useState("");
   const [genId, setGenId] = useState("");
-  const [highButtonState, setHighState] = useState("btn-inactive");
-  const [medButtonState, setMedState] = useState("btn-active");
-  const [lowButtonState, setLowState] = useState("btn-inactive");
+
 
   var resolution = "large";
-  var styleTag;
   const onResolutionChange = (newResol) => {
     resolution = newResol;
   };
@@ -358,6 +354,7 @@ const Philter = ({}) => {
     //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", resolution);
     setLoadState("loading");
+    console.log(inputTitle);
 
     try {
       const response = await axios({
@@ -516,7 +513,8 @@ const Philter = ({}) => {
                   borderColor: "blue",
                   width: "220px",
                   height: "220px",
-                  display: "inline-flex",
+                  display: "flex",
+                  alignSelf: "center"
                 }}
                 onClick={() => handleStyleSelect("scream")}
               />
@@ -537,23 +535,20 @@ const Philter = ({}) => {
                 <div>
                   <Button
                     marginRight={"10px"}
-                    btnState={highButtonState}
                     onClick={() => onResolutionChange("small")}
                   >
-                    Small
+                    Low
                   </Button>
                   <Button
                     marginRight={"10px"}
-                    btnState={medButtonState}
                     onClick={() => onResolutionChange("medium")}
                   >
                     Medium
                   </Button>
                   <Button
-                    btnState={lowButtonState}
                     onClick={() => onResolutionChange("mega")}
                   >
-                    Large
+                    High
                   </Button>
                 </div>
               </div>
@@ -642,22 +637,31 @@ const Philter = ({}) => {
                   alignItems: "center",
                 }}
               >
-                <Button type="submit" fontSize={"30px"} btnState="btn-inactive">
+                <Button type="submit" fontSize={"30px"} >
                   Generate
                 </Button>
 
                 <Button
                   onClick={() => onSubmit()}
                   fontSize={"30px"}
-                  btnState="btn-inactive"
                 >
                   Save
                 </Button>
               </div>
             </div>
           </form>
-          {loadState === "loading" && <h3>LOADING</h3>}
-          {imagePath && <img src={imagePath} />}
+          {loadState === "loading" && <h3 style={{
+                  fontSize: "25px",
+                  fontFamily: "Righteous, cursive",
+                  color: "#7C8AC5",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  marginTop: "30px",
+                  marginBottom: "10px",
+                  alignItems: "center",
+                }}>LOADING</h3>}
+          {imagePath && <div style={{display:"flex", justifyContent: "space-evenly", marginTop: "25px"}}>
+            <img  src={imagePath}/></div>}
         </div>
       </Container>
     </div>
@@ -936,7 +940,7 @@ export default function Adopter({}) {
 ```
 # Image Restoration Page
 
-### Bring a color back to black and white image!
+### Bring a color back from black and white image!
 
 This is our import React library
 

@@ -1,32 +1,34 @@
-import React, { useState } from 'react'
-import { Container,
-   Heading, 
-   SimpleGrid, 
-   Divider, 
-   Button, 
-   Image,
+// Gallery image Components
+
+import React, { useState } from "react";
+import {
+  Container,
+  Heading,
+  SimpleGrid,
+  Divider,
+  Button,
+  Image,
   RadioGroup,
   Radio,
   Input,
-  Stack } from '@chakra-ui/react'
-import Popup from './Modal';
+  Stack,
+} from "@chakra-ui/react";
+import Popup from "./Modal";
 
 const GalleryImage = (props) => {
-
   const [showModal, setShowModal] = useState(false);
   const [showGal, setShowGal] = useState(true);
 
   const toggleModal = () => {
-    setShowModal(true)
-  }
-  
-  const doNothing = () => {
+    setShowModal(true);
+  };
 
-  }
+  const doNothing = () => {};
 
-  return ((showGal)) ? (
+  return showGal ? (
     <div className="container">
-      <style jsx>{`
+      <style jsx>
+        {`
     .container {
       position: relative;
       width: 71%;
@@ -74,23 +76,43 @@ const GalleryImage = (props) => {
       z-index: 2:
     }
     `}
-    </style>
-    <Container className="image" boxSize={250} onClick={(props.opacity == 0) ? doNothing : toggleModal} opacity={props.opacity}>
-      <Image src={props.src} objectFit="cover" boxSize={250} borderRadius={30}/>
-      <div className="overlay">
-        <div className="text">
-          {props.name}
-          {props.children}
+      </style>
+      <Container
+        className="image"
+        boxSize={250}
+        onClick={props.opacity == 0 ? doNothing : toggleModal}
+        opacity={props.opacity}
+      >
+        <Image
+          src={props.src}
+          objectFit="cover"
+          boxSize={250}
+          borderRadius={30}
+        />
+        <div className="overlay">
+          <div className="text">
+            {props.name}
+            {props.children}
           </div>
-      </div>
+        </div>
       </Container>
-      <Popup trigger={showModal} setTrigger={()=>setShowModal(false)} setSrc={() => setShowGal(false)} src={props.src} boxSize={250} name={props.name} description={props.description} tags={props.tags} algo={props.algo} baseSrc={props.baseSrc} id={props.id}>
-
-      </Popup>
+      <Popup
+        trigger={showModal}
+        setTrigger={() => setShowModal(false)}
+        setSrc={() => setShowGal(false)}
+        src={props.src}
+        boxSize={250}
+        name={props.name}
+        description={props.description}
+        tags={props.tags}
+        algo={props.algo}
+        baseSrc={props.baseSrc}
+        id={props.id}
+      ></Popup>
     </div>
-    
-  ) : 
-  '';
-}
+  ) : (
+    ""
+  );
+};
 
-export default GalleryImage
+export default GalleryImage;

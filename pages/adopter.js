@@ -1,3 +1,8 @@
+// Style Adopter Page
+// Uses customized Slider to control the level of style
+// Uses Axios to Upload Images to the server
+// Back-end server takes the image and generate a new customized style image.
+
 import {
   Container,
   Heading,
@@ -6,63 +11,62 @@ import {
   Slider,
   Button,
   ButtonGroup,
-} from "@chakra-ui/react";
-import Section from "../components/section";
+} from "@chakra-ui/react"; // import Chakra UI components
+
 import Layout from "../components/layouts/article";
-import { WorkGridItem } from "../components/grid-item";
+
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState } from "react"; // import React and React Hook
 import SliderA from "../components/SliderA";
 import axios from "axios";
 
 export default function Adopter({}) {
   <Layout title="Developer" />;
 
-  const idCluster = [];
-  const [loadState, setLoadState] = useState("idle");
-  const [inputTitleAdapter, setInputTitleAdapter] = useState(" ");
-  const [inputTagAdapter, setInputTagAdapter] = useState(" ");
-  const [inputDescAdapter, setInputDescAdapter] = useState(" ");
-  const [inputEpoch, setInputEpoch] = useState(1);
-  const [selectedStyle, setSelectedStyle] = useState(null);
-  const [selectedContent, setSelectedConent] = useState(null);
-  const [contentId, setContentId] = useState("");
-  const [genId, setGenId] = useState("");
-  const [styleId, setStyleId] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const idCluster = []; // Image Id clusters for (Style Image ID, original image ID, Generated image ID)
+  const [loadState, setLoadState] = useState("idle"); // React Hooks
+  const [inputTitleAdapter, setInputTitleAdapter] = useState(" "); // React Hooks for title
+  const [inputTagAdapter, setInputTagAdapter] = useState(" "); // React Hooks for tag
+  const [inputDescAdapter, setInputDescAdapter] = useState(" "); // React Hooks for description
+  const [inputEpoch, setInputEpoch] = useState(1); // React Hooks - set the initial value to true
+  const [selectedStyle, setSelectedStyle] = useState(null); // React Hooks for style image
+  const [selectedContent, setSelectedConent] = useState(null); // React Hooks for original image
+  const [contentId, setContentId] = useState(""); // React Hooks for content image
+  const [genId, setGenId] = useState(""); // React Hooks for gen image ID
+  const [styleId, setStyleId] = useState(""); // React Hooks for style image ID
+  const [imageUrl, setImageUrl] = useState(""); // React Hooks
 
   var value = 50;
   var resolution = "Med";
 
-
   function handleStyleSelect(event) {
-    setSelectedStyle(event.target.files[0]);
+    setSelectedStyle(event.target.files[0]); // React Hooks
   }
 
   function handleContentSelect(event) {
-    setSelectedConent(event.target.files[0]);
+    setSelectedConent(event.target.files[0]); // React Hooks
   }
 
   async function onSaveImage() {
+    // when user click "Save"
+    idCluster.push(genId); // store Generated image ID
+    idCluster.push(contentId); // store content image ID
+    idCluster.push(styleId); // store style image ID
 
-    idCluster.push(genId);
-    idCluster.push(contentId);
-    idCluster.push(styleId);
-
-    const form = new FormData();
+    const form = new FormData(); // form data transfer between application and the server
     form.append("userId", "philter2021@gmail.com");
     form.append("tag", inputTagAdapter);
     form.append("algorithm", "STYLE");
     form.append("imageList", JSON.stringify(idCluster));
 
-    console.log(idCluster);
+    console.log(idCluster); // test if we are getting the right the value for 3 image ID
     console.log(JSON.stringify(idCluster));
 
     try {
       const response = await axios({
         mode: "cors",
         method: "post",
-        url: "http://127.0.0.1:5000//save-cluster",
+        url: "http://127.0.0.1:5000//save-cluster", // App.py (REST API)
         data: form,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -77,19 +81,31 @@ export default function Adopter({}) {
   }
 
   async function onFormSubmit(event) {
-    
+    //When user clicks "Generate"
     var size;
     var layer;
 
-    if (value < 20) {layer = 'a'}
-    else if (value < 40) {layer = 'b'}
-    else if (value < 60) {layer = 'c'}
-    else if (value < 80) {layer = 'd'}
-    else {layer = 'e'}
+    if (value < 20) {
+      // for style level
+      layer = "a";
+    } else if (value < 40) {
+      layer = "b";
+    } else if (value < 60) {
+      layer = "c";
+    } else if (value < 80) {
+      layer = "d";
+    } else {
+      layer = "e";
+    }
 
-    if (resolution === "Med") {size = "500"}
-    else if (resolution === "High") {size = "750"}
-    else if (resolution === "Low") {size = "250"}
+    if (resolution === "Med") {
+      // for resolution option
+      size = "500";
+    } else if (resolution === "High") {
+      size = "750";
+    } else if (resolution === "Low") {
+      size = "250";
+    }
 
     //event.preventDefault();
     const form = new FormData();
@@ -121,7 +137,7 @@ export default function Adopter({}) {
       setImageUrl(payload.displayUrl);
 
       console.log(genId, styleId, contentId, imageUrl);
-      
+
       setLoadState("idle");
     } catch (error) {
       console.log(error);
@@ -129,30 +145,25 @@ export default function Adopter({}) {
     }
   }
 
-
   const onSliderChange = (newVal) => {
     value = newVal;
   };
 
   const onResolutionChange = (newResol) => {
     resolution = newResol;
-
   };
-  
+
   const generateImage = () => {
     console.log("attempting to generate image");
     onFormSubmit();
-
   };
 
   const saveImage = () => {
     console.log("attempting to save image");
     onSaveImage();
-
   };
 
   return (
-
     <div
       style={{
         marginTop: "50px",
@@ -180,32 +191,31 @@ export default function Adopter({}) {
           display: "flex",
           justifyContent: "space-evenly",
           fontFamily: "Righteous, cursive",
-          color:"#7C8AC5"
+          color: "#7C8AC5",
         }}
       >
-        <div style={{display:"inline-flex"}}>
-        <div>
-        <div>
-            <h1> Upload style image: </h1>
-        </div>
+        <div style={{ display: "inline-flex" }}>
+          <div>
+            <div>
+              <h1> Upload style image: </h1>
+            </div>
+
+            <div>
+              <div>
+                <input
+                  type="file"
+                  multiple
+                  name="file"
+                  onChange={handleStyleSelect}
+                />
+              </div>
+            </div>
+          </div>
 
           <div>
             <div>
-              <input
-                type="file"
-                multiple
-                name="file"
-                onChange={handleStyleSelect}
-              />
-            </div>        
-          </div>
-          </div>
-
-        <div>
-        <div>
-            <h1> Upload content image: </h1>
-        </div>
-        
+              <h1> Upload content image: </h1>
+            </div>
 
             <div>
               <input
@@ -215,9 +225,8 @@ export default function Adopter({}) {
                 onChange={handleContentSelect}
               />
             </div>
-            </div>
-
-      </div>
+          </div>
+        </div>
       </div>
 
       <div
@@ -258,11 +267,7 @@ export default function Adopter({}) {
       >
         <h3>Resolution:</h3>
         <div>
-          <Button
-            onClick={() => onResolutionChange("Low")}
-          >
-            Low
-          </Button>
+          <Button onClick={() => onResolutionChange("Low")}>Low</Button>
 
           <Button
             marginRight={"10px"}
@@ -270,7 +275,7 @@ export default function Adopter({}) {
           >
             Medium
           </Button>
-          
+
           <Button
             marginRight={"10px"}
             onClick={() => onResolutionChange("High")}
@@ -281,7 +286,7 @@ export default function Adopter({}) {
       </div>
 
       <div>
-      <div
+        <div
           style={{
             fontSize: "20px",
             fontFamily: "Righteous, cursive",
@@ -305,7 +310,6 @@ export default function Adopter({}) {
             onChange={(event) => setInputEpoch(event.target.value)}
           />
         </div>
-
 
         <div
           style={{
@@ -379,8 +383,6 @@ export default function Adopter({}) {
             onChange={(event) => setInputTagAdapter(event.target.value)}
           />
         </div>
-
-
       </div>
 
       <div
@@ -395,10 +397,7 @@ export default function Adopter({}) {
           alignItems: "center",
         }}
       >
-        <Button
-          fontSize={"30px"}
-          onClick={() => generateImage()}
-        >
+        <Button fontSize={"30px"} onClick={() => generateImage()}>
           Generate
         </Button>
         <Button type="save" fontSize={"30px"} onClick={() => saveImage()}>
@@ -406,19 +405,33 @@ export default function Adopter({}) {
         </Button>
       </div>
 
-      {loadState === "loading" && <h3 style={{
-                  fontSize: "25px",
-                  fontFamily: "Righteous, cursive",
-                  color: "#7C8AC5",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  marginTop: "30px",
-                  marginBottom: "10px",
-                  alignItems: "center",
-                }}>LOADING</h3>}
-          {imageUrl && <div style={{display:"flex", justifyContent: "space-evenly", marginTop: "25px"}}>
-            <img  src={imageUrl}/></div>}
-
+      {loadState === "loading" && (
+        <h3
+          style={{
+            fontSize: "25px",
+            fontFamily: "Righteous, cursive",
+            color: "#7C8AC5",
+            display: "flex",
+            justifyContent: "space-evenly",
+            marginTop: "30px",
+            marginBottom: "10px",
+            alignItems: "center",
+          }}
+        >
+          LOADING
+        </h3>
+      )}
+      {imageUrl && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            marginTop: "25px",
+          }}
+        >
+          <img src={imageUrl} />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
+// Navigation Bar Component
+
 import NextLink from "next/link";
-
-
 import {
   Container,
   Box,
@@ -16,11 +16,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ThemeToggleButton from "./theme-toggle-button.js";
 import Login from "./Login";
-
 
 const LinkItem = ({ href, path, children }) => {
   const active = path === href;
@@ -43,8 +41,6 @@ const LinkItem = ({ href, path, children }) => {
 const Navbar = (props) => {
   const { path } = props;
 
-
-
   return (
     <Box
       position="fixed"
@@ -65,19 +61,22 @@ const Navbar = (props) => {
       >
         <Flex align="center" mr={5}>
           <Link
-          href="/"
-          fontFamily={"Righteous"}
-           bgColor={useColorModeValue("#7C8AC5", "#EFF1F3")} 
-           borderStyle={"solid"} 
-           borderColor={useColorModeValue("#7C8AC5", "EFF1F3")} 
-           borderWidth={"5px"}
-           borderRadius={"10px"}
-           fontSize={"40px"} 
-           color={useColorModeValue("#EFF1F3", "#202023")}
-           paddingRight={"30px"}
-           paddingLeft={"30px"}
-           marginRight={"10vw"}
-           as="h1" size="lg" letterSpacing={"tighter"}>
+            href="/"
+            fontFamily={"Righteous"}
+            bgColor={useColorModeValue("#7C8AC5", "#EFF1F3")}
+            borderStyle={"solid"}
+            borderColor={useColorModeValue("#7C8AC5", "EFF1F3")}
+            borderWidth={"5px"}
+            borderRadius={"10px"}
+            fontSize={"40px"}
+            color={useColorModeValue("#EFF1F3", "#202023")}
+            paddingRight={"30px"}
+            paddingLeft={"30px"}
+            marginRight={"10vw"}
+            as="h1"
+            size="lg"
+            letterSpacing={"tighter"}
+          >
             Philter
           </Link>
         </Flex>
@@ -111,9 +110,7 @@ const Navbar = (props) => {
             Developers
           </LinkItem>
 
-          <Login/>
-
-
+          <Login />
         </Stack>
 
         <Box flex={1} align="right">

@@ -1,8 +1,7 @@
-//Fetching data here
-//1.the user’s network connection: avoid re-fetching data that is already available
-//2 what to do while waiting for the server response
-//3.how to handle when data is not available (server error, or no data)
-//4.how to recover if integration breaks (endpoint unavailable, resource changed, etc)
+//Philter Page
+//Uses Axios to Upload Images to the server
+//Back-end server takes the image and generate a new filtered image
+//Chakra UI elements are used to beautify the website
 
 import { useState } from "react";
 import {
@@ -17,58 +16,53 @@ import Head from "next/head";
 import axios from "axios";
 
 const Philter = ({}) => {
-  const idCluster = [];
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [loadState, setLoadState] = useState("idle");
-  const [styleFile, setStyleFile] = useState(null);
-  const [inputTitleFilter, setInputTitleFilter] = useState("");
-  const [inputDescFilter, setInputDescFilter] = useState("");
-  const [inputTagFilter, setInputTagFilter] = useState("");
-  const [imagePath, setImagePath] = useState("");
-  const [contentId, setContentId] = useState("");
-  const [genId, setGenId] = useState("");
+  const idCluster = []; // React Hooks for 3 Image ID
+  const [selectedFile, setSelectedFile] = useState(null); // React Hooks for image file
+  const [loadState, setLoadState] = useState("idle"); // React Hooks for loader
+  const [styleFile, setStyleFile] = useState(null); // React Hooks for style image ID
+  const [inputTitleFilter, setInputTitleFilter] = useState(""); // React Hooks for title
+  const [inputDescFilter, setInputDescFilter] = useState(""); // React Hooks for description
+  const [inputTagFilter, setInputTagFilter] = useState(""); // React Hooks for Tag
+  const [imagePath, setImagePath] = useState(""); // React Hooks for the image path
+  const [contentId, setContentId] = useState(""); // React Hooks for content image ID
+  const [genId, setGenId] = useState(""); // React Hooks for generated image ID
 
+  var resolution = "large"; // variable for resolution option
 
-  var resolution = "large";
   const onResolutionChange = (newResol) => {
-    resolution = newResol;
+    resolution = newResol; //hooks
   };
 
   function handleFileSelect(event) {
-    setSelectedFile(event.target.files[0]);
+    setSelectedFile(event.target.files[0]); //hooks
   }
 
   const handleStyleSelect = (styleName) => {
-    // styleName(styleName);
-    // styleTag = styleName;
-    setStyleFile(styleName);
+    setStyleFile(styleName); //hooks
   };
 
   async function onFormSubmit(event) {
     event.preventDefault();
-    console.log("submit");
-    const form = new FormData();
-    form.append("file", selectedFile);
-    form.append("title", inputTitleFilter);
-    form.append("description", inputDescFilter);
-    form.append("name", styleFile);
-    //cudi, edtaonisl, mosaic, scream, starrynight.
-    form.append("size", resolution);
+    console.log("Generate"); // testing if the API call works well
+    const form = new FormData(); // Form data transfer betweem the app and the server
+    form.append("file", selectedFile); // file
+    form.append("title", inputTitleFilter); // title
+    form.append("description", inputDescFilter); // description
+    form.append("name", styleFile); // Name of the input image
+    form.append("size", resolution); // Size of the input resolution
     setLoadState("loading");
 
     try {
       const response = await axios({
         mode: "cors",
         method: "post",
-        url: "http://127.0.0.1:5000/apply-filter",
+        url: "http://127.0.0.1:5000/apply-filter", //App.py (REST API)
         data: form,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      // const imagePath = await response.data.displayUrl;
-      // const imageId = await response.data.genId;
-      // const contentId = await response.data.contentId;
+
       const payload = await response.data;
       const contentId = payload.contentId;
       const genId = payload.genId;
@@ -77,8 +71,6 @@ const Philter = ({}) => {
       setImagePath(payload.displayUrl);
       console.log(inputTitleFilter, inputDescFilter);
 
-      // TODO: Get image url from the response aned set state
-      // setImageUrl(response.data.url);
       setLoadState("idle");
     } catch (error) {
       console.log(error);
@@ -87,28 +79,28 @@ const Philter = ({}) => {
   }
 
   async function onSubmit() {
+    //Total of five style model ready -> cudi, edtaonisl, mosaic, scream, starrynight.
     if (styleFile === "mosaic") {
-      //cudi, edtaonisl, mosaic, scream, starrynight.
-      idCluster.push("188d17de-2acf-4585-bfb0-697cf1fcafb5");
+      idCluster.push("188d17de-2acf-4585-bfb0-697cf1fcafb5"); // style ID for mosaic
     } else if (styleFile === "cudi") {
-      idCluster.push("ebe40eb3-69d2-4327-937a-4590da174b83");
+      idCluster.push("ebe40eb3-69d2-4327-937a-4590da174b83"); // style ID for cudi
     } else if (styleFile === "edtaonisl") {
-      idCluster.push("38f15b9b-cb01-4346-a59d-571666497cfe");
+      idCluster.push("38f15b9b-cb01-4346-a59d-571666497cfe"); // style ID for edtaonisl
     } else if (styleFile === "scream") {
-      idCluster.push("2abe1505-86d6-4a19-a03a-ae513e1c5668");
+      idCluster.push("2abe1505-86d6-4a19-a03a-ae513e1c5668"); // style ID for scream
     } else {
-      idCluster.push("886173ee-71c0-4f84-beea-cd9f68dee696");
+      idCluster.push("886173ee-71c0-4f84-beea-cd9f68dee696"); // style ID for starry night
     }
     idCluster.push(genId);
     idCluster.push(contentId);
     const form = new FormData();
-    form.append("userId", "philter2021@gmail.com");
-    form.append("tag", inputTagFilter);
-    form.append("algorithm", "FILTER");
-    form.append("imageList", JSON.stringify(idCluster));
+    form.append("userId", "philter2021@gmail.com"); // user logins with this given data for now
+    form.append("tag", inputTagFilter); // input image tag
+    form.append("algorithm", "FILTER"); // algorithms
+    form.append("imageList", JSON.stringify(idCluster)); // list of images
 
-    console.log(idCluster);
-    console.log(JSON.stringify(idCluster));
+    console.log(idCluster); // checking if we are getting the right value of 3 image IDs
+    console.log(JSON.stringify(idCluster)); // turns types of the imageID the way we want it
 
     try {
       const response = await axios({
@@ -141,11 +133,13 @@ const Philter = ({}) => {
         <title>Philter | Philter</title>
         <meta name="keywords" content="philter" />
       </Head>
-      <Container style={{
+      <Container
+        style={{
           fontFamily: "Righteous, cursive",
-          color:"#7C8AC5"
-        }}>
-        <div >
+          color: "#7C8AC5",
+        }}
+      >
+        <div>
           <h1>Upload an image and add a philter to it!</h1>
         </div>
         <div>
@@ -218,7 +212,7 @@ const Philter = ({}) => {
                   width: "220px",
                   height: "220px",
                   display: "flex",
-                  alignSelf: "center"
+                  alignSelf: "center",
                 }}
                 onClick={() => handleStyleSelect("scream")}
               />
@@ -249,9 +243,7 @@ const Philter = ({}) => {
                   >
                     Medium
                   </Button>
-                  <Button
-                    onClick={() => onResolutionChange("mega")}
-                  >
+                  <Button onClick={() => onResolutionChange("mega")}>
                     High
                   </Button>
                 </div>
@@ -277,7 +269,9 @@ const Philter = ({}) => {
                       backgroundColor: "#D2D2D2",
                       marginLeft: "88px",
                     }}
-                    onChange={(event) => setInputTitleFilter(event.target.value)}
+                    onChange={(event) =>
+                      setInputTitleFilter(event.target.value)
+                    }
                   />
                 </div>
 
@@ -341,31 +335,43 @@ const Philter = ({}) => {
                   alignItems: "center",
                 }}
               >
-                <Button type="submit" fontSize={"30px"} >
+                <Button type="submit" fontSize={"30px"}>
                   Generate
                 </Button>
 
-                <Button
-                  onClick={() => onSubmit()}
-                  fontSize={"30px"}
-                >
+                <Button onClick={() => onSubmit()} fontSize={"30px"}>
                   Save
                 </Button>
               </div>
             </div>
           </form>
-          {loadState === "loading" && <h3 style={{
-                  fontSize: "25px",
-                  fontFamily: "Righteous, cursive",
-                  color: "#7C8AC5",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  marginTop: "30px",
-                  marginBottom: "10px",
-                  alignItems: "center",
-                }}>LOADING</h3>}
-          {imagePath && <div style={{display:"flex", justifyContent: "space-evenly", marginTop: "25px"}}>
-            <img  src={imagePath}/></div>}
+          {loadState === "loading" && (
+            <h3
+              style={{
+                fontSize: "25px",
+                fontFamily: "Righteous, cursive",
+                color: "#7C8AC5",
+                display: "flex",
+                justifyContent: "space-evenly",
+                marginTop: "30px",
+                marginBottom: "10px",
+                alignItems: "center",
+              }}
+            >
+              LOADING
+            </h3>
+          )}
+          {imagePath && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                marginTop: "25px",
+              }}
+            >
+              <img src={imagePath} />
+            </div>
+          )}
         </div>
       </Container>
     </div>

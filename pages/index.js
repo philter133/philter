@@ -1,5 +1,11 @@
+// Home Page
+// The first page of the Philter application
+// Contains the sample of our 3 features ( Philter, Style Adopter, Image Restoration)
+// Navigates to Gallery Page (where user can access their saved Data and compare them side-by-side
+// Navigates to Developer Page which contains the information about the developers of the project.
+
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState } from "react"; // import React and React Hook
 import {
   Heading,
   Link,
@@ -13,7 +19,7 @@ import {
   Grid,
   GridItem,
   Stack,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"; // import Chakra UI components
 import NextLink from "next/link";
 import Section from "../components/section";
 import Paragraph from "../components/paragraph";
@@ -22,40 +28,61 @@ import Layout from "../components/layouts/article";
 import image from "next/image";
 
 export default function Home() {
+  // Implementing 2 arrays that associates with one another
+  // loading the sample filtered image when user click the sample style image
   function ImagesContainer() {
     const images = [
-      "https://i.ibb.co/fQxF60K/STARRY-NIGHT.jpg", //IMAGE URL FROM SRI ON FRIDAY
-      "https://i.ibb.co/VSLPHj2/CUDI.jpg", //
+      // Array of sample style Image
+      "https://i.ibb.co/fQxF60K/STARRY-NIGHT.jpg",
+      "https://i.ibb.co/VSLPHj2/CUDI.jpg",
       "https://i.ibb.co/sPN1YZ6/MOSAIC.jpg",
     ];
 
     const filteredImages = [
-      "https://i.ibb.co/6HqCk7r/31bee301-8065-424c-8e5a-675ad171dabb.jpg", //IMAGE URL FROM SRI ON FRIDAY
-      "https://i.ibb.co/YL6ndZX/6c2f5713-f69d-4e08-a13a-0f2b9dfb6218.jpg", //
+      // Array of sample filtered Image
+      "https://i.ibb.co/6HqCk7r/31bee301-8065-424c-8e5a-675ad171dabb.jpg",
+      "https://i.ibb.co/YL6ndZX/6c2f5713-f69d-4e08-a13a-0f2b9dfb6218.jpg",
       "https://i.ibb.co/XtmYvfw/a5bc4e41-56fa-4f64-812c-45458852be53.jpg",
     ];
 
-    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0); // React Hooks
 
     return (
       <div>
         <SelectedImage url={filteredImages[selectedImageIndex]} />
-        {images.map((url, i) => (
-          <ImageGridItem
-            url={url}
-            selected={url === images[selectedImageIndex]}
-            onClick={() => setSelectedImageIndex(i)}
-          />
-        ))}
+        {images.map(
+          (
+            url,
+            i //using Image Map to connect two arrays the way we want
+          ) => (
+            <ImageGridItem
+              url={url}
+              selected={url === images[selectedImageIndex]}
+              onClick={() => setSelectedImageIndex(i)}
+            />
+          )
+        )}
       </div>
     );
   }
 
   function SelectedImage({ url }) {
-    return <img  src={url} style={{ width: 300, borderRadius:"10px", overflow:"none", marginTop:"20px" }} />;
+    // Image user selected
+    return (
+      <img
+        src={url}
+        style={{
+          width: 300,
+          borderRadius: "10px",
+          overflow: "none",
+          marginTop: "20px",
+        }}
+      />
+    );
   }
 
   function ImageGridItem({ url, selected, onClick }) {
+    // Images loads in grid format
     return (
       <div align="center">
         <Image
@@ -84,11 +111,10 @@ export default function Home() {
       <Layout>
         <Container maxW="container.xl">
           <div
-          style={{
-            marginTop: "50px",
-          }}>
-
-          </div>
+            style={{
+              marginTop: "50px",
+            }}
+          ></div>
           <Section delay={0.1}>
             <SimpleGrid
               borderRadius={30}
@@ -127,12 +153,12 @@ export default function Home() {
                   />
                 </div>
                 <div flexDirection="row">
-                  <Image 
+                  <Image
                     borderRadius={10}
                     overflow={"none"}
                     display="inline-flex"
-                    marginTop = "20px"
-                    marginRight = "80px"
+                    marginTop="20px"
+                    marginRight="80px"
                     src="https://i.ibb.co/x1cx8vq/df67f869-1767-4835-a3ab-3321d45c4047.jpg"
                     boxSize="150px"
                   />
@@ -180,7 +206,6 @@ export default function Home() {
                     src="https://i.ibb.co/YT9R27h/b7d5f250-0c2f-46db-8799-6441d5996613.jpg"
                     width={390}
                     height={280}
-
                   />
                 </div>
               </Container>

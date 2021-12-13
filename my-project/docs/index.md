@@ -23,17 +23,22 @@ Now you are ready to see our projects in mkdocs.
 ##Other requirements
 After downloading our repo, run below command to install all required modules.
 
+Make sure you have nodeJS and npm installed on your system.
+
 ```bash
 npm install 
+npm install next
+npm install react-google-login
 ```
 
 How to Run our front-end application
 ```bash
 npm run dev
 ```
+You will get a link prompted, then direct to that link the link will look like this http://localhost:3000
 
 ## Project layout
-```nextJS
+```Javascript
 .
 ├── README.md
 ├── components
@@ -89,7 +94,7 @@ npm run dev
 ```
 
 Our Home nextJS Page
-```nextJS
+```Javascript
 import Head from "next/head";
 import React, { useState } from "react";
 import {

@@ -1,61 +1,49 @@
-//Fetching data here
-//1.the user’s network connection: avoid re-fetching data that is already available
-//2 what to do while waiting for the server response
-//3.how to handle when data is not available (server error, or no data)
-//4.how to recover if integration breaks (endpoint unavailable, resource changed, etc)
+//Image Restorator Page
+//Uses Axios to Upload Images to the server
+//Back-end server takes the image and restores the color
+//Chakra UI elements are used to beautify the website
 
-//form.elements will show all elements in form
-//Array.from(form.elements) make it an array of diff element
-//const form = event.currentTarget
-//Const fileInput = Array.from(form.elements).find(({ name }) => name === 'file') we are accessing the file that are uploading to browser
-
-import { useState } from "react";
+import { useState } from "react"; //React Hook
 import {
   Container,
   Heading,
   SimpleGrid,
   Divider,
   Button,
-} from "@chakra-ui/react";
-import Section from "../components/section";
-import Layout from "../components/layouts/article";
-import { WorkGridItem } from "../components/grid-item";
+} from "@chakra-ui/react"; //Chakra Components
+
 import Head from "next/head";
 import axios from "axios";
 
-
 const Restoration = ({}) => {
+  const [inputTitle, setInputTitle] = useState(""); // State hook for input title
+  const [inputDesc, setInputDesc] = useState(""); // State hook for input description
+  const [inputTag, setInputTag] = useState(""); // State hook for input Tag
+  const [selectedFile, setSelectedFile] = useState(null); // State hook for input file
+  const [loadState, setLoadState] = useState("idle"); // State hook for loader
+  const [imageUrl, setImageUrl] = useState(null); // State hook for images
+  const [genId, setGenId] = useState(""); // state hook Generated ImageID
+  const [contentId, setContentId] = useState(""); // state hook for Content ImageID
 
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputDesc, setInputDesc] = useState("");
-  const [inputTag, setInputTag] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [loadState, setLoadState] = useState("idle");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [genId, setGenId] = useState("");
-  const [contentId, setContentId] = useState("");
+  const idCluster = []; //Array for Generated Image ID, Style ID, and original Image ID
 
- const idCluster = [];
-
-
-  async function handleSave()
-  {
-    idCluster.push(genId);
-    idCluster.push(contentId);
-    console.log(idCluster);
+  async function handleSave() {
+    // This method literally handles saving of image data
+    idCluster.push(genId); // store Generated Image Data
+    idCluster.push(contentId); // sotre Content Image Data
+    console.log(idCluster); // Test to see if we are getting right value for 3 image IDs
     console.log("string:" + JSON.stringify(idCluster));
-    const form = new FormData();
-    form.append("userId", "philter2021@gmail.com");
-    form.append("tag", inputTag);
-    form.append("algorithm", "BW");
-    form.append("imageList", JSON.stringify(idCluster));
-
+    const form = new FormData(); // form data transfer between the app and the server
+    form.append("userId", "philter2021@gmail.com"); // user ID
+    form.append("tag", inputTag); // Tag
+    form.append("algorithm", "BW"); // Algorithms
+    form.append("imageList", JSON.stringify(idCluster)); // List of images
 
     try {
       const response = await axios({
         mode: "cors",
         method: "post",
-        url: "http://127.0.0.1:5000//save-cluster",
+        url: "http://127.0.0.1:5000//save-cluster", //method is from App.py
         data: form,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -73,18 +61,19 @@ const Restoration = ({}) => {
   }
 
   async function onFormSubmit(event) {
+    // When User clicks Generate Button
     event.preventDefault();
     const form = new FormData();
-    form.append("file", selectedFile);
-    form.append("title", inputTitle);
-    form.append("description", inputDesc);
+    form.append("file", selectedFile); // File (PNG,JPEG,HEIC....)
+    form.append("title", inputTitle); // Title
+    form.append("description", inputDesc); // Description(less than 100 words preferred)
 
     setLoadState("loading");
     try {
       const response = await axios({
         mode: "cors",
         method: "post",
-        url: "http://127.0.0.1:5000/bw-color",
+        url: "http://127.0.0.1:5000/bw-color", // App.py(REST API)
         data: form,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -94,14 +83,13 @@ const Restoration = ({}) => {
       setContentId(payload.contentId);
       setGenId(payload.genId);
       setImageUrl(payload.displayUrl);
-      
+
       setLoadState("idle");
     } catch (error) {
       console.log(error);
       setLoadState("error");
     }
   }
-
 
   return (
     <div
@@ -117,10 +105,12 @@ const Restoration = ({}) => {
         <meta name="keywords" content="restoration" />
       </Head>
       <Container>
-        <div style={{
-          fontFamily: "Righteous, cursive",
-          color:"#7C8AC5"
-        }}> 
+        <div
+          style={{
+            fontFamily: "Righteous, cursive",
+            color: "#7C8AC5",
+          }}
+        >
           <div>
             <h1>Upload an image to give it color!</h1>
           </div>
@@ -138,53 +128,28 @@ const Restoration = ({}) => {
               />
             </div>
             <div>
-                <div
+              <div
+                style={{
+                  fontSize: "20px",
+                  fontFamily: "Righteous, cursive",
+                  color: "#7C8AC5",
+                  display: "inline-flex",
+                  justifyContent: "space-around",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                  alignItems: "center",
+                }}
+              >
+                <h3>Image title:</h3>
+                <input
                   style={{
-                    fontSize: "20px",
-                    fontFamily: "Righteous, cursive",
-                    color: "#7C8AC5",
-                    display: "inline-flex",
-                    justifyContent: "space-around",
-                    marginTop: "10px",
-                    marginBottom: "10px",
-                    alignItems: "center",
+                    WebkitBorderTopLeftRadius: "5px",
+                    WebkitBorderTopRightRadius: "5px",
+                    backgroundColor: "#D2D2D2",
+                    marginLeft: "88px",
                   }}
-                >
-                  <h3>Image title:</h3>
-                  <input
-                    style={{
-                      WebkitBorderTopLeftRadius: "5px",
-                      WebkitBorderTopRightRadius: "5px",
-                      backgroundColor: "#D2D2D2",
-                      marginLeft: "88px",
-                    }}
-                    onChange={(event) => setInputTitle(event.target.value)}
-                  />
-                </div>
-
-                <div
-                  style={{
-                    fontSize: "20px",
-                    fontFamily: "Righteous, cursive",
-                    color: "#7C8AC5",
-                    display: "inline-flex",
-                    justifyContent: "space-around",
-                    marginTop: "10px",
-                    marginBottom: "10px",
-                    alignItems: "center",
-                  }}
-                >
-                  <h3>Image Description:</h3>
-                  <input
-                    style={{
-                      marginLeft: "20px",
-                      WebkitBorderTopLeftRadius: "5px",
-                      WebkitBorderTopRightRadius: "5px",
-                      backgroundColor: "#D2D2D2",
-                    }}
-                    onChange={(event) => setInputDesc(event.target.value)}
-                  />
-                </div>
+                  onChange={(event) => setInputTitle(event.target.value)}
+                />
               </div>
 
               <div
@@ -199,17 +164,42 @@ const Restoration = ({}) => {
                   alignItems: "center",
                 }}
               >
-                <h3>Image Tag:</h3>
+                <h3>Image Description:</h3>
                 <input
                   style={{
-                    marginLeft: "90px",
+                    marginLeft: "20px",
                     WebkitBorderTopLeftRadius: "5px",
                     WebkitBorderTopRightRadius: "5px",
                     backgroundColor: "#D2D2D2",
                   }}
-                  onChange={(event) => setInputTag(event.target.value)}
+                  onChange={(event) => setInputDesc(event.target.value)}
                 />
               </div>
+            </div>
+
+            <div
+              style={{
+                fontSize: "20px",
+                fontFamily: "Righteous, cursive",
+                color: "#7C8AC5",
+                display: "inline-flex",
+                justifyContent: "space-around",
+                marginTop: "10px",
+                marginBottom: "10px",
+                alignItems: "center",
+              }}
+            >
+              <h3>Image Tag:</h3>
+              <input
+                style={{
+                  marginLeft: "90px",
+                  WebkitBorderTopLeftRadius: "5px",
+                  WebkitBorderTopRightRadius: "5px",
+                  backgroundColor: "#D2D2D2",
+                }}
+                onChange={(event) => setInputTag(event.target.value)}
+              />
+            </div>
             <div
               style={{
                 fontSize: "40px",
@@ -222,30 +212,46 @@ const Restoration = ({}) => {
                 alignItems: "center",
               }}
             >
-
-              
               <Button type="submit" fontSize={"30px"}>
                 Generate
               </Button>
-              
-              <Button type="save" fontSize={"30px"} onClick={() => handleSave()}>
+
+              <Button
+                type="save"
+                fontSize={"30px"}
+                onClick={() => handleSave()}
+              >
                 Save
               </Button>
             </div>
           </form>
-          {loadState === "loading" && <h3 style={{
-                  fontSize: "25px",
-                  fontFamily: "Righteous, cursive",
-                  color: "#7C8AC5",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  marginTop: "30px",
-                  marginBottom: "10px",
-                  alignItems: "center",
-                }}>LOADING</h3>}
-          {imageUrl && 
-          <div style={{display:"flex", justifyContent: "space-evenly", marginTop: "25px"}}>
-            <img  src={imageUrl}/></div>}
+          {loadState === "loading" && (
+            <h3
+              style={{
+                fontSize: "25px",
+                fontFamily: "Righteous, cursive",
+                color: "#7C8AC5",
+                display: "flex",
+                justifyContent: "space-evenly",
+                marginTop: "30px",
+                marginBottom: "10px",
+                alignItems: "center",
+              }}
+            >
+              LOADING
+            </h3>
+          )}
+          {imageUrl && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                marginTop: "25px",
+              }}
+            >
+              <img src={imageUrl} />
+            </div>
+          )}
         </div>
       </Container>
     </div>

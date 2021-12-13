@@ -1,33 +1,33 @@
+// Pop-up Component for Gallery page
+
 import React, { useState } from "react";
 import { Image } from "@chakra-ui/image";
 import { SimpleGrid, Box, Input } from "@chakra-ui/layout";
 import { CloseButton } from "@chakra-ui/close-button";
 import { Button } from "@chakra-ui/button";
-import axios from 'axios'
+import axios from "axios";
 import { color } from "@chakra-ui/react";
 
-
 function Popup(props) {
-  const id = props.id
+  const id = props.id;
 
-  async function dbData (id) {
+  async function dbData(id) {
     console.log("trying to delete data");
     const form = new FormData();
     form.append("clusterId", id);
     return axios({
-        url: "http://127.0.0.1:5000/delete-cluster",
-        data: form,
-        method: "post",
-        headers: { "Content-Type": "multipart/form-data" },
-        mode: "cors",
-      });
+      url: "http://127.0.0.1:5000/delete-cluster",
+      data: form,
+      method: "post",
+      headers: { "Content-Type": "multipart/form-data" },
+      mode: "cors",
+    });
   }
 
-
-
-    return (props.trigger) ? (
-        <div className="popup">
-        <style jsx>{`
+  return props.trigger ? (
+    <div className="popup">
+      <style jsx>
+        {`
         .popup {
             position: fixed;
       
@@ -78,43 +78,99 @@ function Popup(props) {
           }
           
         `}
-        </style>
-        <div className="popup-inner">
+      </style>
+      <div className="popup-inner">
         {/* <button className="close-btn" onClick={()=>props.setTrigger(false)}>
             x
             </button> */}
-            <SimpleGrid columns="2" bgColor="">
-              <Box backgroundColor='' textAlign='left' bgColor='white'>
-                Old
-              {<Image src={props.baseSrc[0].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
-              {(props.algo == 'BW') && <Image src={props.baseSrc[0].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
-              {(props.algo != 'BW') && <Image src={props.baseSrc[1].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
-              </Box>
-            <Box textColor="black" textAlign="left" fontSize={19}>
-              <CloseButton boxSize="50" onClick={()=>props.setTrigger(false)} color="red" bgColor="#ebedf0" _hover={{ bg: 'rgb(255, 128, 128)' }} marginLeft={385} borderRadius={15}>
-                </CloseButton>
-                <Box textAlign='left'>
-                New
-              <Image src={props.src} boxSize={325} objectFit="cover" borderRadius={30} marginTop={31}/>
-              </Box>
+        <SimpleGrid columns="2" bgColor="">
+          <Box backgroundColor="" textAlign="left" bgColor="white">
+            Old
+            {
+              <Image
+                src={props.baseSrc[0].url}
+                boxSize={245}
+                objectFit="cover"
+                borderRadius={30}
+                marginTop={61}
+              />
+            }
+            {props.algo == "BW" && (
+              <Image
+                src={props.baseSrc[0].url}
+                boxSize={245}
+                objectFit="cover"
+                borderRadius={30}
+                marginTop={61}
+              />
+            )}
+            {props.algo != "BW" && (
+              <Image
+                src={props.baseSrc[1].url}
+                boxSize={245}
+                objectFit="cover"
+                borderRadius={30}
+                marginTop={61}
+              />
+            )}
+          </Box>
+          <Box textColor="black" textAlign="left" fontSize={19}>
+            <CloseButton
+              boxSize="50"
+              onClick={() => props.setTrigger(false)}
+              color="red"
+              bgColor="#ebedf0"
+              _hover={{ bg: "rgb(255, 128, 128)" }}
+              marginLeft={385}
+              borderRadius={15}
+            ></CloseButton>
+            <Box textAlign="left">
+              New
+              <Image
+                src={props.src}
+                boxSize={325}
+                objectFit="cover"
+                borderRadius={30}
+                marginTop={31}
+              />
             </Box>
-            </SimpleGrid>
-            <Box bgColor="" boxSize="250" minWidth="400" textAlign="left" textColor="black" marginTop={-200} marginLeft={440}>
-            Tags: <br/>
-              {props.tags} <br/><br/>
-              Name: <br/>
-              {props.name} <br/>
-              Description: <br/>
-              {props.description} <br/>
-              <Button bgColor='rgb(255, 102, 102)' marginTop={8} marginLeft={345} _hover={{bgColor: 'rgb(230, 0, 0)'}} onClick={() => {(dbData(id).then(response => console.log(response))); props.setSrc(false)}}>
-                Delete
-              </Button>
-              </Box>
-            {props.children}
-          </div>
-        </div>
-
-    ) : "";
+          </Box>
+        </SimpleGrid>
+        <Box
+          bgColor=""
+          boxSize="250"
+          minWidth="400"
+          textAlign="left"
+          textColor="black"
+          marginTop={-200}
+          marginLeft={440}
+        >
+          Tags: <br />
+          {props.tags} <br />
+          <br />
+          Name: <br />
+          {props.name} <br />
+          Description: <br />
+          {props.description} <br />
+          <Button
+            bgColor="rgb(255, 102, 102)"
+            marginTop={8}
+            marginLeft={345}
+            _hover={{ bgColor: "rgb(230, 0, 0)" }}
+            onClick={() => {
+              dbData(id).then((response) => console.log(response));
+              props.setSrc(false);
+            }}
+          >
+            Delete
+          </Button>
+        </Box>
+        {props.children}
+      </div>
+    </div>
+  ) : (
+    ""
+  );
 }
 
-export default Popup
+export default Popup;

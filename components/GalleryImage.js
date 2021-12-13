@@ -1,34 +1,59 @@
-// Gallery image Components
-
-import React, { useState } from "react";
-import {
-  Container,
-  Heading,
-  SimpleGrid,
-  Divider,
-  Button,
-  Image,
+/**
+ * The GalleryImage component to be rendered within the Gallery.
+ * Pressing on the GalleryImage opens the Modal as the Modal is the child.
+ * Utilizes Axios, React, NextJS, and Chakra-UI.
+ */
+import React, { useState } from 'react'
+import { Container,
+   Heading, 
+   SimpleGrid, 
+   Divider, 
+   Button, 
+   Image,
   RadioGroup,
   Radio,
   Input,
-  Stack,
-} from "@chakra-ui/react";
-import Popup from "./Modal";
+  Stack } from '@chakra-ui/react'
+import Popup from './Modal';
 
+//The GalleryImage
 const GalleryImage = (props) => {
+
+  /**
+   * The React State Hook to show or hide the Modal based on boolean
+   * 
+   * @param showModal (Boolean) The state of the modal being enabled or disabled, starts as false.
+   * @function setResponseData Sets the boolean of showModal
+   */
   const [showModal, setShowModal] = useState(false);
+
+  /**
+   * The React State Hook to show or hide the GalleryImage, based on the
+   * data sent by the Modal child component
+   * 
+   * @param showGal (Boolean) The state of the GalleryImage being enabled or disabled, starts as true.
+   * @function setShowGal Sets the boolean of showGal
+   */
   const [showGal, setShowGal] = useState(true);
 
   const toggleModal = () => {
-    setShowModal(true);
-  };
+    setShowModal(true)
+  }
+  
+  /**
+   * A function that allows another to do nothing on call
+   */
+  const doNothing = () => {
 
-  const doNothing = () => {};
+  }
 
-  return showGal ? (
+  /**
+     * Uses a ternary operator with showGal as a boolean to have the GalleryImage be enabled or disabled
+     */
+  return ((showGal)) ? (
     <div className="container">
-      <style jsx>
-        {`
+      {/**The in-code css for the various parts */}
+      <style jsx>{`
     .container {
       position: relative;
       width: 71%;
@@ -76,43 +101,26 @@ const GalleryImage = (props) => {
       z-index: 2:
     }
     `}
-      </style>
-      <Container
-        className="image"
-        boxSize={250}
-        onClick={props.opacity == 0 ? doNothing : toggleModal}
-        opacity={props.opacity}
-      >
-        <Image
-          src={props.src}
-          objectFit="cover"
-          boxSize={250}
-          borderRadius={30}
-        />
-        <div className="overlay">
-          <div className="text">
-            {props.name}
-            {props.children}
+    </style>
+    {/**The container of the GalleryImage to click to turn on the Modal */}
+    <Container className="image" boxSize={250} onClick={(props.opacity == 0) ? doNothing : toggleModal} opacity={props.opacity}>
+      {/**The image of the GalleryImage */}
+      <Image src={props.src} objectFit="cover" boxSize={250} borderRadius={30}/>
+      <div className="overlay">
+        <div className="text">
+          {props.name}
+          {props.children}
           </div>
-        </div>
+      </div>
       </Container>
-      <Popup
-        trigger={showModal}
-        setTrigger={() => setShowModal(false)}
-        setSrc={() => setShowGal(false)}
-        src={props.src}
-        boxSize={250}
-        name={props.name}
-        description={props.description}
-        tags={props.tags}
-        algo={props.algo}
-        baseSrc={props.baseSrc}
-        id={props.id}
-      ></Popup>
-    </div>
-  ) : (
-    ""
-  );
-};
+      {/**The popup function for the Modal, is sent data by Modal to close Modal or delete and close GalleryImage, also sends data down to Modal for display purposes*/}
+      <Popup trigger={showModal} setTrigger={()=>setShowModal(false)} setSrc={() => setShowGal(false)} src={props.src} boxSize={250} name={props.name} description={props.description} tags={props.tags} algo={props.algo} baseSrc={props.baseSrc} id={props.id}>
 
-export default GalleryImage;
+      </Popup>
+    </div>
+    
+  ) : 
+  '';
+}
+
+export default GalleryImage

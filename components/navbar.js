@@ -1,5 +1,6 @@
-import Logo from "./logo";
 import NextLink from "next/link";
+
+
 import {
   Container,
   Box,
@@ -14,8 +15,12 @@ import {
   IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
+
+
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ThemeToggleButton from "./theme-toggle-button.js";
+import Login from "./Login";
+
 
 const LinkItem = ({ href, path, children }) => {
   const active = path === href;
@@ -23,8 +28,10 @@ const LinkItem = ({ href, path, children }) => {
   return (
     <NextLink href={href}>
       <Link
+        fontFamily={"Righteous"}
         p={2}
-        bg={active ? "grassTeal" : undefined}
+        bg={active ? useColorModeValue("#7C8AC5", "#EFF1F3") : undefined}
+        borderRadius={"10px"}
         color={active ? "#202023" : inactiveColor}
       >
         {children}
@@ -36,12 +43,14 @@ const LinkItem = ({ href, path, children }) => {
 const Navbar = (props) => {
   const { path } = props;
 
+
+
   return (
     <Box
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue("#ffffff40", "#20202380")}
+      bg={useColorModeValue("#EFF1F3", "#202023")}
       style={{ backdropFilter: "blur(10px)" }}
       zIndex={1}
       {...props}
@@ -51,13 +60,26 @@ const Navbar = (props) => {
         p={2}
         maxW="container.md"
         wrap="wrap"
-        align="center"
         justify="space-between"
+        width={"100vw"}
       >
         <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-            <Logo />
-          </Heading>
+          <Link
+          href="/"
+          fontFamily={"Righteous"}
+           bgColor={useColorModeValue("#7C8AC5", "#EFF1F3")} 
+           borderStyle={"solid"} 
+           borderColor={useColorModeValue("#7C8AC5", "EFF1F3")} 
+           borderWidth={"5px"}
+           borderRadius={"10px"}
+           fontSize={"40px"} 
+           color={useColorModeValue("#EFF1F3", "#202023")}
+           paddingRight={"30px"}
+           paddingLeft={"30px"}
+           marginRight={"10vw"}
+           as="h1" size="lg" letterSpacing={"tighter"}>
+            Philter
+          </Link>
         </Flex>
 
         <Stack
@@ -67,17 +89,14 @@ const Navbar = (props) => {
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
+          marginLeft={"4vw"}
         >
-          <LinkItem href="/developer" path={path}>
-            Developers
-          </LinkItem>
-
           <LinkItem href="/adopter" path={path}>
-            Style Adopter
+            Style Adapter
           </LinkItem>
 
           <LinkItem href="/philter" path={path}>
-            Philter
+            Filter
           </LinkItem>
 
           <LinkItem href="/restoration" path={path}>
@@ -87,6 +106,14 @@ const Navbar = (props) => {
           <LinkItem href="/gallery" path={path}>
             Gallery
           </LinkItem>
+
+          <LinkItem href="/developer" path={path}>
+            Developers
+          </LinkItem>
+
+          <Login/>
+
+
         </Stack>
 
         <Box flex={1} align="right">
@@ -105,7 +132,7 @@ const Navbar = (props) => {
                   <MenuItem as={Link}>Developer Page</MenuItem>
                 </NextLink>
                 <NextLink href="/adopter" passHref>
-                  <MenuItem as={Link}>Style Adopter Page</MenuItem>
+                  <MenuItem as={Link}>Style Adapter Page</MenuItem>
                 </NextLink>
                 <NextLink href="/philter" passHref>
                   <MenuItem as={Link}>Philter Page</MenuItem>

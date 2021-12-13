@@ -5,20 +5,130 @@ import {
   Divider,
   Slider,
   Button,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import Section from "../components/section";
 import Layout from "../components/layouts/article";
 import { WorkGridItem } from "../components/grid-item";
 import Head from "next/head";
 import React, { useState } from "react";
+import SliderA from "../components/SliderA";
+import axios from "axios";
 
 export default function Adopter({}) {
   <Layout title="Developer" />;
-  const [highButtonState, setHighState] = useState("btn-inactive");
-  const [medButtonState, setMedState] = useState("btn-active");
-  const [lowButtonState, setLowState] = useState("btn-inactive");
+
+  const idCluster = [];
+  const [loadState, setLoadState] = useState("idle");
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputTag, setInputTag] = useState("");
+  const [inputDesc, setInputDesc] = useState("");
+  const [inputEpoch, setInputEpoch] = useState(1);
+  const [selectedStyle, setSelectedStyle] = useState(null);
+  const [selectedContent, setSelectedConent] = useState(null);
+  const [contentId, setContentId] = useState("");
+  const [genId, setGenId] = useState("");
+  const [styleId, setStyleId] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
   var value = 50;
   var resolution = "Med";
+
+
+  function handleStyleSelect(event) {
+    setSelectedStyle(event.target.files[0]);
+  }
+
+  function handleContentSelect(event) {
+    setSelectedConent(event.target.files[0]);
+  }
+
+  async function onSaveImage() {
+
+    idCluster.push(genId);
+    idCluster.push(contentId);
+    idCluster.push(styleId);
+
+    const form = new FormData();
+    form.append("userId", "philter2021@gmail.com");
+    form.append("tag", inputTag);
+    form.append("algorithm", "STYLE");
+    form.append("imageList", JSON.stringify(idCluster));
+
+    console.log(idCluster);
+    console.log(JSON.stringify(idCluster));
+
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000//save-cluster",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error"); //sets error when the data doesn't go through
+    }
+  }
+
+  async function onFormSubmit(event) {
+    
+    var size;
+    var layer;
+
+    if (value < 20) {layer = 'a'}
+    else if (value < 40) {layer = 'b'}
+    else if (value < 60) {layer = 'c'}
+    else if (value < 80) {layer = 'd'}
+    else {layer = 'e'}
+
+    if (resolution === "Med") {size = "500"}
+    else if (resolution === "High") {size = "750"}
+    else if (resolution === "Low") {size = "250"}
+
+    //event.preventDefault();
+    const form = new FormData();
+    form.append("contentImage", selectedContent);
+    form.append("styleImage", selectedStyle);
+    form.append("imageSize", size);
+    form.append("layerSet", layer); //letters
+    form.append("styleWeight", "1e5");
+    form.append("contentWeight", "1e-2");
+    form.append("epochs", inputEpoch);
+    form.append("title", inputTitle);
+    form.append("description", inputDesc);
+
+    setLoadState("loading");
+    try {
+      const response = await axios({
+        mode: "cors",
+        method: "post",
+        url: "http://127.0.0.1:5000/style-image",
+        data: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const payload = await response.data;
+      setContentId(payload.contentId);
+      setGenId(payload.genId);
+      setStyleId(payload.styleId);
+      setImageUrl(payload.displayUrl);
+
+      console.log(genId, styleId, contentId, imageUrl);
+      
+      setLoadState("idle");
+    } catch (error) {
+      console.log(error);
+      setLoadState("error");
+    }
+  }
+
 
   const onSliderChange = (newVal) => {
     value = newVal;
@@ -27,105 +137,289 @@ export default function Adopter({}) {
   const onResolutionChange = (newResol) => {
     resolution = newResol;
 
-    setLowState("btn-inactive");
-    setMedState("btn-inactive");
-    setHighState("btn-inactive");
-    let btnState = "btn-inactive";
-    if (newResol === "High") {
-      setHighState("btn-active");
-    } else if (newResol === "Med") {
-      setMedState("btn-active");
-    } else if (newResol === "Low") {
-      setLowState("btn-active");
-    }
-
     console.log("button clicked" + resolution);
     console.log(value);
+    console.log("Title: " + inputTitle);
+    console.log("desc:" + inputDesc);
   };
+  
   const generateImage = () => {
-    //implement image generation here
-    //variable resolution contains "High, Med, Low" depending on user choice
-    //variable value ranges from (0,100) depending on user choice (slider)
+    console.log("attempting to generate image");
+    onFormSubmit();
+
+  };
+
+  const saveImage = () => {
+    console.log("attempting to save image");
+    onSaveImage();
+
   };
 
   return (
-    //     const LogoBox = styled.span`
-    //   font-weight: bold;
-    //   font-size: 18px;
-    //   display: inline-flex;
-    //   align-items: center;
-    //   height: 30px;
-    //   line-height: 20px;
-    //   padding: 10px;
 
-    //   img {
-    //     transition: 200ms ease;
-    //   }
+    <div
+      style={{
+        marginTop: "50px",
+        background: "#EFF1F2",
+        padding: "40px",
+        borderRadius: "7px",
+      }}
+    >
+      <header
+        style={{
+          marginBottom: "20px",
+          fontSize: "45px",
+          textAlign: "center",
+          color: "#7C8AC5",
+          fontFamily: "Righteous, cursive",
+        }}
+      >
+        Style Adapter
+      </header>
 
-    //   &:hover img {
-    //     transform: rotate(20deg);
-    //   }
-    // `;
-
-    <div>
-      <div>
-        <header>Style Adapter</header>
-
-        <div> implement image upload here</div>
-
+      <div
+        style={{
+          textAlign: "center",
+          padding: "40px",
+          display: "flex",
+          justifyContent: "space-evenly",
+          fontFamily: "Righteous, cursive",
+          color:"#7C8AC5"
+        }}
+      >
+        <div style={{display:"inline-flex"}}>
         <div>
-          <Slider onSliderChange={onSliderChange} />
-          <h3>Lightly Stylized</h3>
-          <h3>Heavily Stylized</h3>
+        <div>
+            <h1> Upload style image: </h1>
         </div>
 
-        <div>
-          <h3>Resolution</h3>
-        </div>
-        <div>
           <div>
-            <Button
-              btnState={highButtonState}
-              onClick={() => onResolutionChange("High")}
-            >
-              High
-            </Button>
-            <Button
-              btnState={medButtonState}
-              onClick={() => onResolutionChange("Med")}
-            >
-              Med
-            </Button>
-            <Button
-              btnState={lowButtonState}
-              onClick={() => onResolutionChange("Low")}
-            >
-              Low
-            </Button>
+            <div>
+              <input
+                type="file"
+                multiple
+                name="file"
+                onChange={handleStyleSelect}
+              />
+            </div>        
           </div>
-        </div>
+          </div>
 
-        <div className="seperator">
-          <Button btnState="btn-inactive" onClick={() => generateImage()}>
-            Generate
+        <div>
+        <div>
+            <h1> Upload content image: </h1>
+        </div>
+        
+
+            <div>
+              <input
+                type="file"
+                multiple
+                name="file"
+                onChange={handleContentSelect}
+              />
+            </div>
+            </div>
+
+      </div>
+      </div>
+
+      <div
+        style={{
+          alignItems: "Center",
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        <SliderA onSliderChange={onSliderChange} />
+      </div>
+
+      <div
+        style={{
+          alignItems: "Center",
+          display: "flex",
+          justifyContent: "space-around",
+          fontSize: "20px",
+          fontFamily: "Righteous, cursive",
+          color: "#7C8AC5",
+        }}
+      >
+        <h3>Lightly Stylized</h3>
+        <h3>Heavily Stylized</h3>
+      </div>
+
+      <div
+        style={{
+          fontSize: "25px",
+          fontFamily: "Righteous, cursive",
+          color: "#7C8AC5",
+          display: "flex",
+          justifyContent: "space-evenly",
+          marginTop: "30px",
+          marginBottom: "10px",
+          alignItems: "center",
+        }}
+      >
+        <h3>Resolution:</h3>
+        <div>
+          <Button
+            onClick={() => onResolutionChange("Low")}
+          >
+            Low
+          </Button>
+
+          <Button
+            marginRight={"10px"}
+            onClick={() => onResolutionChange("Med")}
+          >
+            Medium
+          </Button>
+          
+          <Button
+            marginRight={"10px"}
+            onClick={() => onResolutionChange("High")}
+          >
+            High
           </Button>
         </div>
-
-        <div className="image-upload"> implement preview image here</div>
-
-        <div>
-          <div className="btn-seperator">
-            <Button btnSize="bigSize" btnState="btn-inactive">
-              Save
-            </Button>
-          </div>
-          <div className="btn-seperator">
-            <Button btnSize="bigSize" btnState="btn-inactive">
-              Download
-            </Button>
-          </div>
-        </div>
       </div>
+
+      <div>
+      <div
+          style={{
+            fontSize: "20px",
+            fontFamily: "Righteous, cursive",
+            color: "#7C8AC5",
+            display: "inline-flex",
+            justifyContent: "space-around",
+            marginTop: "10px",
+            marginBottom: "10px",
+            alignItems: "center",
+          }}
+        >
+          <h3>Epoch (iterations):</h3>
+          <input
+            style={{
+              marginLeft: "20px",
+              WebkitBorderTopLeftRadius: "5px",
+              WebkitBorderTopRightRadius: "5px",
+              backgroundColor: "#D2D2D2",
+            }}
+            onChange={(event) => setInputEpoch(event.target.value)}
+          />
+        </div>
+
+
+        <div
+          style={{
+            fontSize: "20px",
+            fontFamily: "Righteous, cursive",
+            color: "#7C8AC5",
+            display: "inline-flex",
+            justifyContent: "space-around",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        >
+          <h3>Image title:</h3>
+          <input
+            style={{
+              WebkitBorderTopLeftRadius: "5px",
+              WebkitBorderTopRightRadius: "5px",
+              backgroundColor: "#D2D2D2",
+              marginLeft: "88px",
+            }}
+            onChange={(event) => setInputTitle(event.target.value)}
+          />
+        </div>
+
+        <div
+          style={{
+            fontSize: "20px",
+            fontFamily: "Righteous, cursive",
+            color: "#7C8AC5",
+            display: "inline-flex",
+            justifyContent: "space-around",
+            marginTop: "10px",
+            marginBottom: "10px",
+            alignItems: "center",
+          }}
+        >
+          <h3>Image description:</h3>
+          <input
+            style={{
+              marginLeft: "20px",
+              WebkitBorderTopLeftRadius: "5px",
+              WebkitBorderTopRightRadius: "5px",
+              backgroundColor: "#D2D2D2",
+            }}
+            onChange={(event) => setInputDesc(event.target.value)}
+          />
+        </div>
+
+        <div
+          style={{
+            fontSize: "20px",
+            fontFamily: "Righteous, cursive",
+            color: "#7C8AC5",
+            display: "inline-flex",
+            justifyContent: "space-around",
+            marginTop: "10px",
+            marginBottom: "10px",
+            alignItems: "center",
+          }}
+        >
+          <h3>Image tag:</h3>
+          <input
+            style={{
+              marginLeft: "90px",
+              WebkitBorderTopLeftRadius: "5px",
+              WebkitBorderTopRightRadius: "5px",
+              backgroundColor: "#D2D2D2",
+            }}
+            onChange={(event) => setInputTag(event.target.value)}
+          />
+        </div>
+
+
+      </div>
+
+      <div
+        style={{
+          fontSize: "40px",
+          fontFamily: "Righteous, cursive",
+          color: "#7C8AC5",
+          display: "flex",
+          justifyContent: "space-around",
+          marginTop: "10px",
+          marginBottom: "10px",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          fontSize={"30px"}
+          onClick={() => generateImage()}
+        >
+          Generate
+        </Button>
+        <Button type="save" fontSize={"30px"} onClick={() => saveImage()}>
+          Save
+        </Button>
+      </div>
+
+      {loadState === "loading" && <h3 style={{
+                  fontSize: "25px",
+                  fontFamily: "Righteous, cursive",
+                  color: "#7C8AC5",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  marginTop: "30px",
+                  marginBottom: "10px",
+                  alignItems: "center",
+                }}>LOADING</h3>}
+          {imageUrl && <div style={{display:"flex", justifyContent: "space-evenly", marginTop: "25px"}}>
+            <img  src={imageUrl}/></div>}
+
     </div>
   );
 }

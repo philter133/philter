@@ -52,7 +52,7 @@ export default function Home() {
   }
 
   function SelectedImage({ url }) {
-    return <img src={url} style={{ width: 250 }} />; // instead of selected image, load another radom image for now
+    return <img  src={url} style={{ width: 300, borderRadius:"10px", overflow:"none", marginTop:"20px" }} />;
   }
 
   function ImageGridItem({ url, selected, onClick }) {
@@ -60,12 +60,14 @@ export default function Home() {
       <div align="center">
         <Image
           src={url}
+          borderRadius={10}
+          overflow={"none"}
           style={{
+            display: "list-item",
             margin: "10px",
             borderColor: "blue",
             width: "150px",
             height: "150px",
-            display: "inline-flex",
           }}
           onClick={onClick}
         />
@@ -81,18 +83,12 @@ export default function Home() {
       </Head>
       <Layout>
         <Container maxW="container.xl">
-          <Box
-            borderRadius="lg"
-            bg={useColorModeValue("whiteAlpha.500", "whiteAlpha.200")}
-            p={3}
-            mb={6}
-            maxW={800}
-            align="center"
-          >
-            <Heading as="h2" variant="page-tile">
-              Philter
-            </Heading>
-          </Box>
+          <div
+          style={{
+            marginTop: "50px",
+          }}>
+
+          </div>
           <Section delay={0.1}>
             <SimpleGrid
               borderRadius={30}
@@ -107,7 +103,7 @@ export default function Home() {
 
             <Box align="center" my={4}>
               <NextLink href="/philter">
-                <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
+                <Button rightIcon={<ChevronRightIcon />}>
                   Create your own
                 </Button>
               </NextLink>
@@ -118,26 +114,33 @@ export default function Home() {
               borderRadius={30}
               backgroundColor="white"
               maxW="1000"
-              minH="700"
+              minH="600"
             >
               <Container textAlign="center" textColor="RED" p={2}>
                 <div align="center">
                   <Image
-                    src="https://picsum.photos/200?random=13"
+                    borderRadius={10}
+                    overflow={"none"}
+                    marginTop={10}
+                    src="https://i.ibb.co/0Xk0T7y/d5f3e503-a466-4c4e-a9b3-821fbe67a87b.jpg"
                     boxSize="300px"
                   />
                 </div>
                 <div flexDirection="row">
-                  <Image
-                    margin="50px"
+                  <Image 
+                    borderRadius={10}
+                    overflow={"none"}
                     display="inline-flex"
-                    src="https://picsum.photos/200?random=13"
+                    marginTop = "20px"
+                    marginRight = "80px"
+                    src="https://i.ibb.co/x1cx8vq/df67f869-1767-4835-a3ab-3321d45c4047.jpg"
                     boxSize="150px"
                   />
                   <Image
-                    margin="50px"
+                    borderRadius={10}
+                    overflow={"none"}
                     display="inline-flex"
-                    src="https://picsum.photos/200?random=15"
+                    src="https://i.ibb.co/JkwfLcq/239e4b1c-1bec-4526-8d24-b8c60911a934.jpg"
                     boxSize="150px"
                   />
                 </div>
@@ -146,7 +149,7 @@ export default function Home() {
 
             <Box align="center" my={4}>
               <NextLink href="/adopter">
-                <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
+                <Button rightIcon={<ChevronRightIcon />}>
                   Create your own
                 </Button>
               </NextLink>
@@ -162,9 +165,9 @@ export default function Home() {
               <Container textAlign="center" textColor="RED" p={2}>
                 <div flexDirection="row">
                   <Image
-                    src="https://picsum.photos/200?random=15"
-                    width={200}
-                    height={500}
+                    borderRadius={10}
+                    overflow={"none"}
+                    src="https://i.ibb.co/PWQBPWq/b1fbfbc7-664f-4096-a29a-1d82e76dcc07.jpg"
                     display="inline-flex"
                     margin="25px"
                   />
@@ -172,9 +175,12 @@ export default function Home() {
                   <Image
                     margin="25px"
                     display="inline-flex"
-                    src="https://picsum.photos/200?random=15"
-                    width={200}
-                    height={500}
+                    borderRadius={10}
+                    overflow={"none"}
+                    src="https://i.ibb.co/YT9R27h/b7d5f250-0c2f-46db-8799-6441d5996613.jpg"
+                    width={390}
+                    height={280}
+
                   />
                 </div>
               </Container>
@@ -182,7 +188,7 @@ export default function Home() {
 
             <Box align="center" my={4}>
               <NextLink href="/restoration">
-                <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
+                <Button rightIcon={<ChevronRightIcon />}>
                   Create your own
                 </Button>
               </NextLink>

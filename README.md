@@ -31,6 +31,8 @@ How to Run our front-end application
 ```bash
 npm run dev
 ```
+You will get a link prompted, then direct to that link
+the link will look like this http://localhost:3000
 
 ## Project layout
 ```nextJS

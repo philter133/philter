@@ -21,9 +21,9 @@ const Philter = ({}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadState, setLoadState] = useState("idle");
   const [styleFile, setStyleFile] = useState(null);
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputDesc, setInputDesc] = useState("");
-  const [inputTag, setInputTag] = useState("");
+  const [inputTitleFilter, setInputTitleFilter] = useState("");
+  const [inputDescFilter, setInputDescFilter] = useState("");
+  const [inputTagFilter, setInputTagFilter] = useState("");
   const [imagePath, setImagePath] = useState("");
   const [contentId, setContentId] = useState("");
   const [genId, setGenId] = useState("");
@@ -49,13 +49,12 @@ const Philter = ({}) => {
     console.log("submit");
     const form = new FormData();
     form.append("file", selectedFile);
-    form.append("title", inputTitle);
-    form.append("description", inputDesc);
+    form.append("title", inputTitleFilter);
+    form.append("description", inputDescFilter);
     form.append("name", styleFile);
     //cudi, edtaonisl, mosaic, scream, starrynight.
     form.append("size", resolution);
     setLoadState("loading");
-    console.log(inputTitle);
 
     try {
       const response = await axios({
@@ -76,6 +75,7 @@ const Philter = ({}) => {
       setContentId(contentId);
       setGenId(genId);
       setImagePath(payload.displayUrl);
+      console.log(inputTitleFilter, inputDescFilter);
 
       // TODO: Get image url from the response aned set state
       // setImageUrl(response.data.url);
@@ -103,7 +103,7 @@ const Philter = ({}) => {
     idCluster.push(contentId);
     const form = new FormData();
     form.append("userId", "philter2021@gmail.com");
-    form.append("tag", inputTag);
+    form.append("tag", inputTagFilter);
     form.append("algorithm", "FILTER");
     form.append("imageList", JSON.stringify(idCluster));
 
@@ -141,8 +141,11 @@ const Philter = ({}) => {
         <title>Philter | Philter</title>
         <meta name="keywords" content="philter" />
       </Head>
-      <Container>
-        <div>
+      <Container style={{
+          fontFamily: "Righteous, cursive",
+          color:"#7C8AC5"
+        }}>
+        <div >
           <h1>Upload your image to get philtered image</h1>
         </div>
         <div>
@@ -151,7 +154,7 @@ const Philter = ({}) => {
         <div>
           <form onSubmit={onFormSubmit}>
             <div>
-              <label>Select File</label>
+              <label>Select File: </label>
               <input
                 type="file"
                 multiple
@@ -272,9 +275,9 @@ const Philter = ({}) => {
                       WebkitBorderTopLeftRadius: "5px",
                       WebkitBorderTopRightRadius: "5px",
                       backgroundColor: "#D2D2D2",
-                      marginLeft: "20px",
+                      marginLeft: "88px",
                     }}
-                    onChange={(event) => setInputTitle(event.target.value)}
+                    onChange={(event) => setInputTitleFilter(event.target.value)}
                   />
                 </div>
 
@@ -298,7 +301,7 @@ const Philter = ({}) => {
                       WebkitBorderTopRightRadius: "5px",
                       backgroundColor: "#D2D2D2",
                     }}
-                    onChange={(event) => setInputDesc(event.target.value)}
+                    onChange={(event) => setInputDescFilter(event.target.value)}
                   />
                 </div>
               </div>
@@ -318,12 +321,12 @@ const Philter = ({}) => {
                 <h3>Image Tag:</h3>
                 <input
                   style={{
-                    marginLeft: "20px",
+                    marginLeft: "90px",
                     WebkitBorderTopLeftRadius: "5px",
                     WebkitBorderTopRightRadius: "5px",
                     backgroundColor: "#D2D2D2",
                   }}
-                  onChange={(event) => setInputTag(event.target.value)}
+                  onChange={(event) => setInputTagFilter(event.target.value)}
                 />
               </div>
 

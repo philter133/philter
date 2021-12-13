@@ -4,9 +4,26 @@ import { SimpleGrid, Box, Input } from "@chakra-ui/layout";
 import { CloseButton } from "@chakra-ui/close-button";
 import { Button } from "@chakra-ui/button";
 import axios from 'axios'
+import { color } from "@chakra-ui/react";
 
 
 function Popup(props) {
+  const id = props.id
+
+  async function dbData (id) {
+    console.log("trying to delete data");
+    const form = new FormData();
+    form.append("clusterId", id);
+    return axios({
+        url: "http://127.0.0.1:5000/delete-cluster",
+        data: form,
+        method: "post",
+        headers: { "Content-Type": "multipart/form-data" },
+        mode: "cors",
+      });
+  }
+
+
 
     return (props.trigger) ? (
         <div className="popup">
@@ -67,10 +84,11 @@ function Popup(props) {
             x
             </button> */}
             <SimpleGrid columns="2" bgColor="">
-              <Box backgroundColor='' textAlign='left'>
+              <Box backgroundColor='' textAlign='left' bgColor='white'>
                 Old
               {<Image src={props.baseSrc[0].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
-              {(props.algo == 'FILTER') && <Image src={props.baseSrc[1].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
+              {(props.algo == 'BW') && <Image src={props.baseSrc[0].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
+              {(props.algo != 'BW') && <Image src={props.baseSrc[1].url} boxSize={245} objectFit="cover" borderRadius={30} marginTop={61}/>}
               </Box>
             <Box textColor="black" textAlign="left" fontSize={19}>
               <CloseButton boxSize="50" onClick={()=>props.setTrigger(false)} color="red" bgColor="#ebedf0" _hover={{ bg: 'rgb(255, 128, 128)' }} marginLeft={385} borderRadius={15}>
@@ -88,6 +106,9 @@ function Popup(props) {
               {props.name} <br/>
               Description: <br/>
               {props.description} <br/>
+              <Button bgColor='rgb(255, 102, 102)' marginTop={8} marginLeft={345} _hover={{bgColor: 'rgb(230, 0, 0)'}} onClick={() => {(dbData(id).then(response => console.log(response))); props.setSrc(false)}}>
+                Delete
+              </Button>
               </Box>
             {props.children}
           </div>

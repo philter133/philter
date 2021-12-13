@@ -5,7 +5,9 @@ import { Container,
   IconButton,
   Input,
   Stack,
-  Box,  } from '@chakra-ui/react'
+  Box, 
+  RadioGroup,
+  Radio } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import Section from '../components/section'
 import Layout from '../components/layouts/article'
@@ -25,6 +27,7 @@ const Gallery = () => {
   const [tempName, setTempName] = useState('');
   const [tempTag, setTempTag] = useState('');
   const [isLoading, setLoading] = useState(false)
+  const [refresh, setR] = useState()
 
 
 
@@ -119,7 +122,12 @@ return (
       </Heading>
       {/* Stack of vertical inputs for Tag and Name */}
       <Stack direction='column' backgroundColor="" spacing="3" textColor="white">
-      <Input placeholder='Search for Image Type' textColor='white' borderRadius = {30} marginBottom={-1} value={tempName} onChange={handleTypeName}/>
+      <RadioGroup defaultValue='None' onChange={(r) => {setTempName(r); console.log(r)}}>
+        <Radio value ='None' paddingLeft={4}>None</Radio>
+        <Radio value ='BW' paddingLeft={4} >Black and White</Radio>
+        <Radio value = 'Filter' paddingLeft={4}>Filter</Radio>
+        <Radio value = 'Style' paddingLeft={4}>Style</Radio>
+      </RadioGroup>
       {(tagSearchEnable=="0") ? "" : <Input placeholder='Search for Tags' textColor='white' borderRadius = {30} marginBottom={-1} value={tempTag} onChange={handleTypeTag} opacity={(tagSearchEnable == 0) ? "0" : "100"}/>}
       {/*Possible Search button to call function for database */}
       <Button aria-label="Search" borderRadius={15} onClick={formSubmit}>
@@ -127,18 +135,6 @@ return (
       </Button>
       {/* Stack of horizontal radios for choosing Tag or name */}
       <Stack direction='row' marginLeft={4}>
-        {/*Filter button with words "Search by Name?: " followed by an icon */}
-      <Button
-      aria-label="Image Type Button Selector"
-      height = {50}
-      borderRadius = {25}
-      opacity={1}
-      rightIcon={(filterSearchEnable == 0) ? <CloseIcon/> : <CheckIcon/>}
-      colorScheme={useModeValue(filterSearchEnable)}
-      onClick={toggleMode}
-      >
-        Search by Type? : 
-     </Button>
       {/*Filter button with words "Search by Tag(s)?: " followed by an icon */}
      <Button
       aria-label="Tag Button Selector"
@@ -178,24 +174,30 @@ return (
     description={responseData.genList[0].description} 
     tags={responseData['tagList'][0]} 
     algo={responseData['algoList'][0]} 
-    baseSrc={responseData['baseList'][0]}/>}
+    baseSrc={responseData['baseList'][0]}
+    id ={responseData['id'][0]}
+    setD={() => setR()}/>}
     {isLoading && responseData && responseData.genList  && (responseData.genList.length == 0) && 'You Have Reached The Last Page'}
     <br/>
     {isLoading && responseData && responseData.genList  && (responseData.genList.length >= 2) && 
     <GalleryImage src={responseData.genList[1].url} 
     name={responseData.genList[1].title} 
     description={responseData.genList[1].description} 
-    tags={responseData['tagList'][0]} 
+    tags={responseData['tagList'][1]} 
     algo={responseData['algoList'][1]} 
-    baseSrc={responseData['baseList'][1]}/>}
+    baseSrc={responseData['baseList'][1]}
+    id ={responseData['id'][1]}
+    setD={() => setR()}/>}
     <br/>
     {isLoading && responseData && responseData.genList  && (responseData.genList.length >= 3) && 
     <GalleryImage src={responseData.genList[2].url} 
-    name={responseData.genList[1].title} 
-    description={responseData.genList[1].description} 
-    tags={responseData['tagList'][0]} 
+    name={responseData.genList[2].title} 
+    description={responseData.genList[2].description} 
+    tags={responseData['tagList'][2]} 
     algo={responseData['algoList'][2]} 
-    baseSrc={responseData['baseList'][2]}/>}
+    baseSrc={responseData['baseList'][2]}
+    id ={responseData['id'][2]}
+    setD={() => setR()}/>}
     <br/> 
     <Container marginLeft={78} fontWeight={700} textShadow>
     </Container>

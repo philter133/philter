@@ -1,7 +1,7 @@
 # Welcome to Philter
 
 For full source code visit [github.com](https://github.com/philter133).
-##Installation
+## Installation
 In order to view the mkdocs, you need to type these commands in the terminal
 ```bash
 pip install mkdocs

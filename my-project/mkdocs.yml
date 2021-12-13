@@ -1,0 +1,10 @@
+site_name: Philter (Team 04)
+site_url: https://philter.com
+nav:
+  - Home: index.md
+  - Philter: philter.md
+  - StyleAdapter: adapter.md
+  - ImageRestoration: restorator.md
+  - Gallery: gallery.md
+  - Developers: developers.md
+theme: readthedocs

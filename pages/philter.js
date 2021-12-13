@@ -146,7 +146,7 @@ const Philter = ({}) => {
           color:"#7C8AC5"
         }}>
         <div >
-          <h1>Upload your image to get philtered image</h1>
+          <h1>Upload an image and add a philter to it!</h1>
         </div>
         <div>
           <h1>Only PNG or JPEG is accepted</h1>

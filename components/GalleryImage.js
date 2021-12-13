@@ -14,6 +14,7 @@ import Popup from './Modal';
 const GalleryImage = (props) => {
 
   const [showModal, setShowModal] = useState(false);
+  const [showGal, setShowGal] = useState(true);
 
   const toggleModal = () => {
     setShowModal(true)
@@ -23,7 +24,7 @@ const GalleryImage = (props) => {
 
   }
 
-  return ((props.src != "")) ? (
+  return ((showGal)) ? (
     <div className="container">
       <style jsx>{`
     .container {
@@ -83,15 +84,13 @@ const GalleryImage = (props) => {
           </div>
       </div>
       </Container>
-      <Popup trigger={showModal} setTrigger={()=>setShowModal(false)} src={props.src} boxSize={250} name={props.name} description={props.description} tags={props.tags} algo={props.algo} baseSrc={props.baseSrc}>
+      <Popup trigger={showModal} setTrigger={()=>setShowModal(false)} setSrc={() => setShowGal(false)} src={props.src} boxSize={250} name={props.name} description={props.description} tags={props.tags} algo={props.algo} baseSrc={props.baseSrc} id={props.id}>
 
       </Popup>
     </div>
     
   ) : 
-  <Container boxSize={250}>
-    
-  </Container>;
+  '';
 }
 
 export default GalleryImage

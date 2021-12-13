@@ -117,16 +117,19 @@ const Restoration = ({}) => {
         <meta name="keywords" content="restoration" />
       </Head>
       <Container>
-        <div>
+        <div style={{
+          fontFamily: "Righteous, cursive",
+          color:"#7C8AC5"
+        }}> 
           <div>
-            <h1>Upload your image to Restore the color of your image </h1>
+            <h1>Upload an image to give it color!</h1>
           </div>
           <div>
             <h1>Only PNG or JPEG is accepted</h1>
           </div>
           <form onSubmit={onFormSubmit}>
             <div>
-              <label>Select File</label>
+              <label>Select File: </label>
               <input
                 type="file"
                 multiple

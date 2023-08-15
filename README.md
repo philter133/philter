@@ -113,55 +113,56 @@ Discover the architecture of Philter's codebase:
 .
 ├── README.md
 ├── components
-│ ├── Footer.js
-│ ├── SliderA.js
-│ ├── fonts.js
-│ ├── grid-item.js
-│ ├── layouts
-│ │ ├── article.js
-│ │ └── main.js
-│ ├── logo.js
-│ ├── navbar.js
-│ ├── paragraph.js
-│ ├── section.js
-│ └── theme-toggle-button.js
+│   ├── Footer.js
+│   ├── SliderA.js
+│   ├── fonts.js
+│   ├── grid-item.js
+│   ├── layouts
+│   │   ├── article.js
+│   │   └── main.js
+│   ├── logo.js
+│   ├── navbar.js
+│   ├── paragraph.js
+│   ├── section.js
+│   └── theme-toggle-button.js
 ├── lib
-│ └── theme.js
+│   └── theme.js
 ├── my-project
-│ ├── docs
-│ │ ├── adapter.md
-│ │ ├── developers.md
-│ │ ├── gallery.md
-│ │ ├── index.md
-│ │ ├── login.md
-│ │ ├── philter.md
-│ │ └── restorator.md
-│ └── mkdocs.yml
+│   ├── docs
+│   │   ├── adapter.md
+│   │   ├── developers.md
+│   │   ├── gallery.md
+│   │   ├── index.md
+│   │   ├── login.md
+│   │   ├── philter.md
+│   │   └── restorator.md
+│   └── mkdocs.yml
 ├── package-lock.json
 ├── package.json
 ├── pages
-│ ├── 404.js
-│ ├── _app.js
-│ ├── _document.js
-│ ├── adopter.js
-│ ├── developer.js
-│ ├── gallery.js
-│ ├── index.js
-│ ├── philter.js
-│ └── restoration.js
+│   ├── 404.js
+│   ├── _app.js
+│   ├── _document.js
+│   ├── adopter.js
+│   ├── developer.js
+│   ├── gallery.js
+│   ├── index.js
+│   ├── philter.js
+│   └── restoration.js
 └── public
-├── favicon.ico
-└── images
-├── AhmedDev3.jpg
-├── ChauDev.jpg
-├── LukeDev2.jpg
-├── SriDev1.jpg
-├── arrow.png
-├── arrow2.png
-├── arrow3.png
-├── philterlogo-dark.png
-├── philterlogo.png
-└── sample1.png
+    ├── favicon.ico
+    └── images
+        ├── AhmedDev3.jpg
+        ├── ChauDev.jpg
+        ├── LukeDev2.jpg
+        ├── SriDev1.jpg
+        ├── arrow.png
+        ├── arrow2.png
+        ├── arrow3.png
+        ├── philterlogo-dark.png
+        ├── philterlogo.png
+        └── sample1.png
+
 
 
 
